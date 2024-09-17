@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="iltemplate" style="flex-grow: 1;">
+        <uie:ObjectField name="target-object" label="Target Object" type="UnityEngine.GameObject, UnityEngine.CoreModule" />
+        <ui:IntegerField name="action-mode" label="Action Mode" value="0" />
+        <ui:Toggle name="allow-owner" label="Allow Instance Owner" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6540697047ca16f418815a5244e2e3bf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - m_VisualTreeAsset: {fileID: 9197481963319205126, guid: 0e15f444f4bfe4d4eb8c64a78b10ce1c,
+      type: 3}
+  - itemListTemplate: {fileID: 9197481963319205126, guid: 4ec186bc8bac500498f1260b3c7c13c9,
+      type: 3}
+  - LockCenterPrefab: {fileID: 3394370328938809256, guid: 437997382940dd94ab9c88282f95e653,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

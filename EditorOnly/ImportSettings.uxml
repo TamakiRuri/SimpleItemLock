@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Button text="Generate Data" parse-escape-sequences="true" display-tooltip-when-elided="true" name="generate-data" />
+    <ui:Button text="Delete All Data" parse-escape-sequences="true" display-tooltip-when-elided="true" name="delete-data" />
+    <ui:ListView name="username" show-border="true" virtualization-method="DynamicHeight" reorderable="true" show-add-remove-footer="true" header-title="Username" show-foldout-header="true" selection-type="Multiple" reorder-mode="Animated" />
+    <ui:ListView name="item-list" show-border="true" virtualization-method="DynamicHeight" reorderable="true" show-add-remove-footer="true" header-title="Item List" show-foldout-header="true" fixed-item-height="66" selection-type="Multiple" reorder-mode="Animated" />
+    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="result" />
+</ui:UXML>
