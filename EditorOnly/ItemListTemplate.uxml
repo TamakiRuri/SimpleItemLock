@@ -3,5 +3,6 @@
         <uie:ObjectField name="target-object" label="Target Object" type="UnityEngine.GameObject, UnityEngine.CoreModule" />
         <ui:IntegerField name="action-mode" label="Action Mode" value="0" />
         <ui:Toggle name="allow-owner" label="Allow Instance Owner" />
+        <ui:Toggle name="wall-mode" label="Wall Mode" />
     </ui:VisualElement>
 </ui:UXML>

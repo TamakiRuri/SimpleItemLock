@@ -26,13 +26,16 @@ public class ImportSettings : EditorWindow
         ImportSettings wnd = GetWindow<ImportSettings>();
         wnd.titleContent = new GUIContent("Item Lock Settings");
     }
+    // list to process
     List<String> userLists=new List<String>();
     List<ItemList> itemLists=new List<ItemList>();
 
+    // final lists
     List<String> userListFinal=new List<String>();
     List<GameObject> targetItemFinal = new List<GameObject>();
     List<int> actionModeFinal = new List<int>();
     List<bool> allowOwnerFinal = new List<bool>();
+    List<bool> wallModeFinal = new List<bool>();
 
     GameObject controlCenter;
 
@@ -81,14 +84,17 @@ public class ImportSettings : EditorWindow
         SetupButtonHandler();
     }
     [Serializable]private struct ItemList{
-        public ItemList(GameObject target=null, int action=0, bool allow=false){
-            targetObject = target;
-            actionMode = action;
-            allowInstanceOwner = allow;
+        public ItemList(GameObject l_target=null, int l_action=0, bool l_allow=false, bool l_wall = false){
+            targetObject = l_target;
+            actionMode = l_action;
+            allowInstanceOwner = l_allow;
+            wallMode = l_wall;
         }
         public GameObject targetObject;
         public int actionMode;
         public bool allowInstanceOwner;
+
+        public bool wallMode;
     }
         private void ReloadItemData(){
         VisualElement root = rootVisualElement;
@@ -97,14 +103,15 @@ public class ImportSettings : EditorWindow
         GameObject[] l_objects = controlCenter.GetComponent<ItemLockDatabase>().exportObjectData();
         int[] l_modes = controlCenter.GetComponent<ItemLockDatabase>().exportModeData();
         bool[] l_allowOwner = controlCenter.GetComponent<ItemLockDatabase>().exportAllowOwnerData();
+        bool[] l_wallMode = controlCenter.GetComponent<ItemLockDatabase>().exportWallData();
         ItemList[] l_list = new ItemList[l_objects.Length];
         for (int i = 0; i < l_objects.Length; i++){
-            l_list[i] = new ItemList(l_objects[i], l_modes[i], l_allowOwner[i]);
+            l_list[i] = new ItemList(l_objects[i], l_modes[i], l_allowOwner[i], l_wallMode[i]);
         }
         itemLists = l_list.ToList();
         userLists = l_usernames.ToList();
         foreach (ItemList ll_list in itemLists){
-            Debug.Log("Game Object " + ll_list.targetObject + " Mode " + ll_list.actionMode + " Allow Owner " +  ll_list.allowInstanceOwner + " Loaded");
+            Debug.Log("Game Object " + ll_list.targetObject + " Mode " + ll_list.actionMode + " Allow Owner " +  ll_list.allowInstanceOwner + "Wall Mode" + ll_list.wallMode+" Loaded");
         }
         //add users
         var userList = root.Q<ListView>("username");
@@ -122,6 +129,7 @@ public class ImportSettings : EditorWindow
             (e.ElementAt(0).ElementAt(0) as ObjectField).value = itemLists[i].targetObject;
             (e.ElementAt(0).ElementAt(1) as IntegerField).value = itemLists[i].actionMode;
             (e.ElementAt(0).ElementAt(2) as BaseBoolField).value = itemLists[i].allowInstanceOwner;
+            (e.ElementAt(0).ElementAt(3) as BaseBoolField).value = itemLists[i].wallMode;
         };
         root.Q<Label>("result").text = "Data Loaded from Local Database";
     }
@@ -145,9 +153,9 @@ public class ImportSettings : EditorWindow
     private void TargetObjectHandler(VisualElement obj){
         targetItemFinal.Add((GameObject)obj.Q<ObjectField>().value);
         actionModeFinal.Add(obj.Q<IntegerField>().value);
-        allowOwnerFinal.Add(obj.Q<BaseBoolField>().value);
+        allowOwnerFinal.Add(obj.Q<BaseBoolField>("allow-owner").value);
+        wallModeFinal.Add(obj.Q<BaseBoolField>("wall-mode").value);
     }
-    //data related functions not implemented
     private void GenerateLockData(ClickEvent _event){
         VisualElement root = rootVisualElement;
         root.Q<Label>("result").text = "Wait";
@@ -156,6 +164,7 @@ public class ImportSettings : EditorWindow
         targetItemFinal.Clear();
         actionModeFinal.Clear();
         allowOwnerFinal.Clear();
+        wallModeFinal.Clear();
 
         try {
         root.Query<TextField>("user").ForEach(UsernameHandler);
@@ -182,7 +191,9 @@ public class ImportSettings : EditorWindow
         controlCenterUdon.SendMessage("importModes", modes);
         bool[] allowowners = allowOwnerFinal.ToArray();
         controlCenterUdon.SendMessage("importAllowOwner", allowowners);
-        controlCenter.GetComponent<ItemLockDatabase>().importObjectData(gameobjs, modes, allowowners);
+        bool[] wallmodes = wallModeFinal.ToArray();
+        controlCenterUdon.SendMessage("importWallModes", wallmodes);
+        controlCenter.GetComponent<ItemLockDatabase>().importObjectData(gameobjs, modes, allowowners, wallmodes);
     }
     //data related functions not implemented
     private void DeleteLockData(ClickEvent _event){

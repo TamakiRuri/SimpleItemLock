@@ -24,19 +24,19 @@ It works with colliders, so items like teleporters will also work.
 
 パフォーマンス影響小 / Low performance cost.
 
+Wall Mode: 指定した人だけがぬける壁（コライダー）、使えるテレポーターなどを作れます。
+
+Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
+
 ### 注意事項 / Limitations
 
 ジョイン時に実行されるため、ターゲットオブジェクトをスイッチでオンにするとスクリプトが無効になります。
 
 そのため、ワールドでユーザーを追加したり、削除したりすることができません。
 
-導入ツールでは許可の時にオブジェクト・コライダーを有効にするため、特定の人しか抜けない壁を作ったりすることができません。（次のBetaで導入予定、他の導入方法では利用できます。）
-
 This script will be run at join, thus enabling the targets object with switches will make this script useless.
 
 Therefore, adding or deleting whitelisted users in VRChat is not supported.
-
-Using the import tool will enable the object or collider only when the person is whitelisted, thus creating a wall that only whitelisted people can go through is not currently supported. (Available at next beta, other methods work in this version)
 
 ### 導入
 
@@ -58,9 +58,9 @@ Open Studio Saphir/Item Lock Settings at tool bar.
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
-アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。
+アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。WallModeでは、指定した人だけがぬける壁（コライダー）、使えるテレポーターなどを作れます。
 
-Create the item list. At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object.
+Create the item list. At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
 
 **一番上のGenerate Dataを押す。この作業は毎回編集する時に必要になります。**
 
@@ -69,10 +69,6 @@ Create the item list. At action mode 0 only whitelisted users can see the object
 ItemLockCenter(Managed)がシーンの中で配置されます。（動かさないようにしてください）Advanced Prefabと同じ方法で編集できます。
 
 ItemLockCenter(Managed) will be placed at the scene. (Do not move this object) You can edit this using the same ways as advanced prefabs.
-
-> Wall Mode を無効にするため、Wall Mode をご利用の方は下のPrefabをご利用ください。
-
-> This scripts removes wall mode settings for now. Please use the prefab method to edit wall mode enabled objects.
 
 #### Prefabを利用する / Use the prefab
 
@@ -86,9 +82,9 @@ There are two types of prefabs. Advanced prefab allow editing modes and the opti
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
-アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。Wall Modeを有効にすれば、特定の人しか通れない壁が作れます。
+アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。WallModeでは、指定した人だけがぬける壁（コライダー）、使えるテレポーターなどを作れます。
 
-Create the item list. At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Enabling Wall Mode can allow creation of whitelisted walls that only allow whitelisted people to go through.
+Create the item list. At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
 
 **Advanced PrefabではGenerate Dataを押す。この作業は毎回編集する時に必要になります。**
 
@@ -106,4 +102,4 @@ Using the + mark at bottom right corner and input usernames for whitelisted user
 
 Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。Wall Modeを有効にすれば、特定の人しか通れない壁が作れます。
 
-At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object.Enabling Wall Mode can allow creation of whitelisted walls that only allow whitelisted people to go through.
+At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
