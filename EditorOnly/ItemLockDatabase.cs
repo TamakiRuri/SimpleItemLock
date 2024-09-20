@@ -32,10 +32,10 @@ public class ItemLockDatabase : MonoBehaviour
     public void importUsernames(String[] l_usernames){
         usernames = l_usernames;
     }
-    public void importObjectData(GameObject[] l_objects, int[] l_modes, bool[] l_allowOwner){
+    public void importObjectData(GameObject[] l_objects, int[] l_modes, bool[] l_allowOwner, bool[] l_wallModes){
         ItemLockList[] l_list = new ItemLockList[l_objects.Length];
         for (int i = 0; i < l_allowOwner.Length; i++){
-            ItemLockList l_entry = new ItemLockList(l_objects[i], l_modes[i], l_allowOwner[i], false);
+            ItemLockList l_entry = new ItemLockList(l_objects[i], l_modes[i], l_allowOwner[i], l_wallModes[i]);
             l_list[i] = l_entry;
         }
         targetObjects = l_list;
