@@ -48,28 +48,6 @@ Therefore, adding or deleting whitelisted users in VRChat is not supported.
 
 2. Unityの**ワールド**プロジェクトに導入します。 / Import to a **World** project.
 
-#### 導入ツールを利用する / Use the import tool
-
-ツールバーのStudio Saphirタブで Item Lock Settingsを開きます。
-
-Open Studio Saphir/Item Lock Settings at tool bar.
-
-ユーザー名を入力します。入力できない場合では、右下の+マークを押してください。User Nameにあるすべてのユーザーがこのオブジェクトを操作できます。
-
-Using the + mark at bottom right corner and input usernames for whitelisted users.
-
-アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。WallModeでは、指定した人だけがぬける壁（コライダー）、使えるテレポーターなどを作れます。
-
-Create the item list. At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
-
-**一番上のGenerate Dataを押す。この作業は毎回編集する時に必要になります。**
-
-**Click the Generate Data Button at top. This should be done for every time the list is edited.**
-
-ItemLockCenter(Managed)がシーンの中で配置されます。（動かさないようにしてください）Advanced Prefabと同じ方法で編集できます。
-
-ItemLockCenter(Managed) will be placed at the scene. (Do not move this object) You can edit this using the same ways as advanced prefabs.
-
 #### Prefabを利用する / Use the prefab
 
 ![Sample2](./Sample2.png)
@@ -103,3 +81,29 @@ Using the + mark at bottom right corner and input usernames for whitelisted user
 Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。Wall Modeを有効にすれば、特定の人しか通れない壁が作れます。
 
 At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
+
+#### (非推奨 / Not Recommended)導入ツールを利用する / Use the import tool
+
+**UIToolkitのバグより、2つ以上のアイテム追加するとUnityがフリーズ、または落ちる可能性があります。必ず前のアイテムに何かを入力してから次のアイテムを追加してください。**
+
+**Because of a bug in UIToolkit, adding more than 1 item at once may cause Unity to freeze or crash. FILL THE LAST THING YOU ADDED BEFORE ADDING ANOTHER ITEM**
+
+ツールバーのToolsタブで Studio Saphir/Item Lock Settings を開きます。
+
+Open Tools/Studio Saphir/Item Lock Settings at tool bar.
+
+ユーザー名を入力します。入力できない場合では、右下の+マークを押してください。User Nameにあるすべてのユーザーがこのオブジェクトを操作できます。
+
+Using the + mark at bottom right corner and input usernames for whitelisted users.
+
+アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。WallModeでは、指定した人だけがぬける壁（コライダー）、使えるテレポーターなどを作れます。
+
+Create the item list. At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
+
+**一番上のGenerate Dataを押す。この作業は毎回編集する時に必要になります。**
+
+**Click the Generate Data Button at top. This should be done for every time the list is edited.**
+
+ItemLockCenter(Managed)がシーンの中で配置されます。（動かさないようにしてください）Advanced Prefabと同じ方法で編集できます。
+
+ItemLockCenter(Managed) will be placed at the scene. (Do not move this object) You can edit this using the same ways as advanced prefabs.
