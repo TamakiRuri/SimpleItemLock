@@ -2,7 +2,6 @@
 using System;
 using UdonSharp;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 using VRC.SDKBase;
 using VRC.Udon;
 
@@ -27,8 +26,10 @@ public class ItemLockCenter : UdonSharpBehaviour
     [SerializeField]private int actionMode = 0;
     [SerializeField]private bool allowInstanceOwner = false;
 
+    [Header("Wall Modeでは、動作が逆になります（壁などを一部の人だけがぬけるようにするなど）")]
+    [Header("In Wall Mode the function of the script become reversed (for creating walls that can only be go through by whitelisted users).")]
+    [Header(" ")]
     [SerializeField]private bool wallMode = false;
-
     void Start()
     {
         scriptAction(actionMode, false);
@@ -60,8 +61,8 @@ public class ItemLockCenter : UdonSharpBehaviour
             }
             break;
             default:
-            Debug.Log("Item Lock: Action Mode Index Out Of Bound.");
-            Debug.Log("Item Lock: Action Modeの入力にエラーを検出しました。");
+            Debug.LogError("Item Lock: Action Mode Index Out Of Bound.");
+            Debug.LogError("Item Lock: Action Modeの入力にエラーを検出しました。");
             break;
         }
         

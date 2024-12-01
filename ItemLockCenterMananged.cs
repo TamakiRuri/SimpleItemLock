@@ -2,8 +2,6 @@
 using System;
 using UdonSharp;
 using UnityEngine;
-using Unity.Collections;
-using UnityEngine.InputSystem.LowLevel;
 using VRC.SDKBase;
 using VRC.Udon;
 
@@ -22,6 +20,9 @@ public class ItemLockCenterMananged : UdonSharpBehaviour
     [SerializeField]private GameObject[] targetObjects;
     [SerializeField]private int[] actionMode;
     [SerializeField]private bool[] allowInstanceOwner;
+    [Header("Wall Modeでは、動作が逆になります（壁などを一部の人だけがぬけるようにするなど）")]
+    [Header("In Wall Mode the function of the script become reversed (for creating walls that can only be go through by whitelisted users).")]
+    [Header(" ")]
     [SerializeField]private bool[] wallModes;
 
     void Start()
@@ -56,8 +57,8 @@ public class ItemLockCenterMananged : UdonSharpBehaviour
             
             break;
             default:
-            Debug.Log("Item Lock: Action Mode Index Out Of Bound.");
-            Debug.Log("Item Lock: Action Modeの入力にエラーを検出しました。");
+            Debug.LogError("Item Lock: Action Mode Index Out Of Bound.");
+            Debug.LogError("Item Lock: Action Modeの入力にエラーを検出しました。");
             break;
         }
         
@@ -65,7 +66,6 @@ public class ItemLockCenterMananged : UdonSharpBehaviour
 
     
     #if UNITY_EDITOR
-    //[SerializeField] private ItemLockListNew[] targetObjectList;
     public void importUsernames(String[] importedUsernames){
         userName=importedUsernames;
         Debug.Log("Username Imported");
@@ -94,17 +94,3 @@ public class ItemLockCenterMananged : UdonSharpBehaviour
     #endif
     
 }
-#if UNITY_EDITOR
-[Serializable]public class ItemLockListNew{
-    public ItemLockListNew(GameObject l_object = null, int l_mode = 0, bool l_allowOwner = false, bool l_wallMode = false){
-        targetObject = l_object;
-        targetMode = l_mode;
-        targetAllowOwner = l_allowOwner;
-        targetWallMode = l_wallMode;
-    }
-    public GameObject targetObject;
-    public int targetMode;
-    public bool targetAllowOwner;
-    public bool targetWallMode;
-}
-# endif

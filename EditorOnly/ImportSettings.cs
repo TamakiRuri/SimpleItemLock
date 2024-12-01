@@ -20,7 +20,7 @@ public class ImportSettings : EditorWindow
 
     [SerializeField]private GameObject LockCenterPrefab;
 
-    [MenuItem("Studio Saphir/Item Lock Settings")]
+    [MenuItem("Tools/Studio Saphir/Item Lock Settings")]
     public static void ShowExample()
     {
         ImportSettings wnd = GetWindow<ImportSettings>();
@@ -195,7 +195,6 @@ public class ImportSettings : EditorWindow
         controlCenterUdon.SendMessage("importWallModes", wallmodes);
         controlCenter.GetComponent<ItemLockDatabase>().importObjectData(gameobjs, modes, allowowners, wallmodes);
     }
-    //data related functions not implemented
     private void DeleteLockData(ClickEvent _event){
         VisualElement root = rootVisualElement;
         root.Q<Label>("result").text = "Wait";
