@@ -67,4 +67,10 @@ public class ItemLockCenter : UdonSharpBehaviour
         }
         
     }
+    #if UNITY_EDITOR && !COMPILER_UDONSHARP
+    public void importUsernames(String[] importedUsernames){
+        userName=importedUsernames;
+        Debug.Log("Username Imported");
+    }
+    #endif
 }

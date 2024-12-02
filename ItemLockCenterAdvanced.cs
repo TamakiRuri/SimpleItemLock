@@ -5,7 +5,7 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-public class ItemLockCenterMananged : UdonSharpBehaviour
+public class ItemLockCenterAdvanced : UdonSharpBehaviour
 {
     [Header("このScriptのデータは自動生成されます")]
     [Header("アイテムを動かしたりすることは、エラーを引き起こす恐れがあります。")]
@@ -20,9 +20,6 @@ public class ItemLockCenterMananged : UdonSharpBehaviour
     [SerializeField]private GameObject[] targetObjects;
     [SerializeField]private int[] actionMode;
     [SerializeField]private bool[] allowInstanceOwner;
-    [Header("Wall Modeでは、動作が逆になります（壁などを一部の人だけがぬけるようにするなど）")]
-    [Header("In Wall Mode the function of the script become reversed (for creating walls that can only be go through by whitelisted users).")]
-    [Header(" ")]
     [SerializeField]private bool[] wallModes;
 
     void Start()
@@ -65,7 +62,7 @@ public class ItemLockCenterMananged : UdonSharpBehaviour
     }
 
     
-    #if UNITY_EDITOR
+    #if UNITY_EDITOR && !COMPILER_UDONSHARP
     public void importUsernames(String[] importedUsernames){
         userName=importedUsernames;
         Debug.Log("Username Imported");

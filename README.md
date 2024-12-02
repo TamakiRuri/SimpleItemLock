@@ -2,31 +2,29 @@
 
 ![Sample](./Sample.png)
 
-Simple Item Lock はVRChatワールドで、アイテムを特定の人にしか触れないようにしたり、見えないようにしたりするギミックです。
+Simple Item Lock はVRChatワールドで、アイテムを特定の人にしか触れない、または見えないようにするギミックです。
 
-コライダーに動作するため、テレポーターなどにも動作します。
+コライダーに動作するため、ボタンやテレポーターなどにも動作します。
 
 Simple Item Lock is a simple way to make your item being used or seen by using a white list.
 
-It works with colliders, so items like teleporters will also work.
+It works with colliders, so items like buttons and teleporters will also work.
 
 ### 特徴 / Features
 
-コライダーモード、無効モード選択可能 / Collider mode and disable mode available.
-
-導入ツール付き / Ships with import tool.
+コライダーモード、無効化モード選択可能 / Collider mode and disable mode available.
 
 選べるインスタンスオーナー許可 / Allow instance owner option available.
 
 2つ以上共存可能 / Support for multiple locks to be used at same time.
 
-ジョイン時に実行 / Runs at join.
+ジョイン時に実行 / Run at join.
 
 パフォーマンス影響小 / Low performance cost.
 
-Wall Mode: 指定した人だけがぬける壁（コライダー）、使えるテレポーターなどを作れます。
+Wall Mode: 指定した人だけがぬける壁（コライダー）などを作れます。
 
-Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
+Use wall mode to make whitelisted players to go through certain walls etc.
 
 ### 注意事項 / Limitations
 
@@ -34,13 +32,21 @@ Use wall mode to make whitelisted players to go through certain walls or use tel
 
 そのため、ワールドでユーザーを追加したり、削除したりすることができません。
 
+同じオブジェクトに複数のItem Lockに登録した場合はサポート対象外です。
+
+Beta-b4 から、Stack Overflowの影響で、導入ツールを削除しました。
+
 This script will be run at join, thus enabling the targets object with switches will make this script useless.
 
 Therefore, adding or deleting whitelisted users in VRChat is not supported.
 
+Letting multiple Item Locks in the same object isn't something we tested, nor what we plan to support.
+
+From Beta-b4, due to the Stack Overflow issue, the import tool is removed.
+
 ### 導入
 
-3種類の導入方法があります。 / There are three ways to import this gimmick.
+2種類の導入方法があります。 / There are 2 ways to import this gimmick.
 
 準備 / Preparation
 
@@ -50,9 +56,7 @@ Therefore, adding or deleting whitelisted users in VRChat is not supported.
 
 #### Prefabを利用する / Use the prefab
 
-![Sample2](./Sample2.png)
-
-2種類のPrefabがあります。 Advancedでは、アイテム一つ一つでインスタンスオーナーの許可を編集したり、モードを選択したりすることができますが、毎回Generate Dataを押す必要があります。Advanced がない方では、すべてのオブジェクトが同じような設定になります。設定の手順はほぼ同じです。
+2種類のPrefabがあります。 Advancedでは、アイテム一つ一つでインスタンスオーナーの許可を編集したり、モードを選択したりすることができますが、毎回Generate Dataを押す必要があります。Advanced でないItem Lockでは、すべてのオブジェクトが同じ設定になります。設定の手順はほぼ同じです。
 
 There are two types of prefabs. Advanced prefab allow editing modes and the options for allowing instance owner for each object, with a drawback of requiring clicking the Generate Data button every time the object is edited. The prefab without Advanced will let all target objects have the same settings.
 
@@ -60,13 +64,17 @@ There are two types of prefabs. Advanced prefab allow editing modes and the opti
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
-アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。WallModeでは、指定した人だけがぬける壁（コライダー）、使えるテレポーターなどを作れます。
+アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されないユーザーがオブジェクトを見えなくなり（無効化モード）、1では動かせないようになります。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。WallModeでは、指定した人だけがぬける壁（コライダー）などが作れます。
 
-Create the item list. At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
+Create the item list. At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls etc.
 
-**Advanced PrefabではGenerate Dataを押す。この作業は毎回編集する時に必要になります。**
+**Advanced PrefabではGenerate Dataを押す必要があります。この作業は毎回編集する時に必要になります。**
 
 **Click the Generate Data Button for Advanced Prefab. This should be done for every time the list is edited.**
+
+Advancedバージョンでは、ユーザー名コピー機能がついています。他のPrefab（非Advanced含む）またはItemLockUsernameがついているオブジェクトを下のTarget LockにいれてCopy Usernames Dataを押すとユーザー名が入れたオブジェクトにコピーされます。
+
+In the Advanced prefab, you can put any other objects with ItemLockUsername or Item Lock Prefabs (Including non-advanced ones) and click Copy Usernames Data to copy the stored usernames to the target object.
 
 #### 一つオブジェクトのみ利用する / Use single object script
 
@@ -74,15 +82,15 @@ Create the item list. At action mode 0 only whitelisted users can see the object
 
 Drag and drop ItemLockUsername script to target object.
 
-ユーザー名を入力する。入力できない場合では、右下の+マークを押してください。User Nameにあるすべてのユーザーがこのオブジェクトを操作できます。
+右下の+マークを押してユーザー名を入力してください。User Nameにあるすべてのユーザーがこのオブジェクトを操作できます。
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
-Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。Wall Modeを有効にすれば、特定の人しか通れない壁が作れます。
+Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効化モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。Wall Modeでは、特定の人しか通れない壁が作れます。
 
 At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
 
-#### (非推奨 / Not Recommended)導入ツールを利用する / Use the import tool
+<!-- #### (非推奨 / Not Recommended)導入ツールを利用する / Use the import tool
 
 **UIToolkitのバグより、2つ以上のアイテム追加するとUnityがフリーズ、または落ちる可能性があります。必ず前のアイテムに何かを入力してから次のアイテムを追加してください。**
 
@@ -106,4 +114,4 @@ Create the item list. At action mode 0 only whitelisted users can see the object
 
 ItemLockCenter(Managed)がシーンの中で配置されます。（動かさないようにしてください）Advanced Prefabと同じ方法で編集できます。
 
-ItemLockCenter(Managed) will be placed at the scene. (Do not move this object) You can edit this using the same ways as advanced prefabs.
+ItemLockCenter(Managed) will be placed at the scene. (Do not move this object) You can edit this using the same ways as advanced prefabs. -->
