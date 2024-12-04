@@ -60,7 +60,7 @@ From Beta-b4, due to the Stack Overflow issue, the import tool is removed.
 
 There are two types of prefabs. Advanced prefab allow editing modes and the options for allowing instance owner for each object, with a drawback of requiring clicking the Generate Data button every time the object is edited. The prefab without Advanced will let all target objects have the same settings.
 
-ユーザー名を入力する。入力できない場合では、右下の+マークを押してください。User Nameにあるすべてのユーザーがこのオブジェクトを操作できます。
+右下の+マークを押しユーザー名を入力します。User Nameにあるすべてのユーザーがこのオブジェクトを操作できます。
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
@@ -72,9 +72,9 @@ Create the item list. At action mode 0 only whitelisted users can see the object
 
 **Click the Generate Data Button for Advanced Prefab. This should be done for every time the list is edited.**
 
-Advancedバージョンでは、ユーザー名コピー機能がついています。他のPrefab（非Advanced含む）またはItemLockUsernameがついているオブジェクトを下のTarget LockにいれてCopy Usernames Dataを押すとユーザー名が入れたオブジェクトにコピーされます。
+Advancedバージョンでは、ユーザー名コピー機能があります。他のPrefab（非Advanced含む）またはItemLockUsernameがついているオブジェクトを下のTarget LockにいれてCopy Usernamesを押すとユーザー名が入れたオブジェクトにコピーされます。
 
-In the Advanced prefab, you can put any other objects with ItemLockUsername or Item Lock Prefabs (Including non-advanced ones) and click Copy Usernames Data to copy the stored usernames to the target object.
+In the Advanced prefab, you can put any other objects with ItemLockUsername or Item Lock Prefabs (Including non-advanced ones) and click Copy Usernames to copy the stored usernames to the target object.
 
 #### 一つオブジェクトのみ利用する / Use single object script
 
