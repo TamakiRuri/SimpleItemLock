@@ -26,23 +26,23 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
     {
         if (wallModes.Length == 0) wallModes = new bool[targetObjects.Length];
         for (int i=0; i< targetObjects.Length; i++){
-            scriptAction(targetObjects[i],actionMode[i], false, wallModes[i]);
-            enableItemorCollider(targetObjects[i], actionMode[i],allowInstanceOwner[i], wallModes[i]);
+            ScriptAction(targetObjects[i],actionMode[i], false, wallModes[i]);
+            EnableItemorCollider(targetObjects[i], actionMode[i],allowInstanceOwner[i], wallModes[i]);
         }
     }
-    private void enableItemorCollider(GameObject targetObject, int actionMode,bool allowInstanceOwner, bool wallMode){
+    private void EnableItemorCollider(GameObject targetObject, int actionMode,bool allowInstanceOwner, bool wallMode){
         String localPlayer = Networking.LocalPlayer.displayName;
         if(Networking.LocalPlayer.isInstanceOwner && allowInstanceOwner){
-            scriptAction(targetObject, actionMode,true, wallMode);
+            ScriptAction(targetObject, actionMode,true, wallMode);
         }
         for (int i =0; i < userName.Length; i++){
             if (localPlayer == userName[i]){
-                scriptAction(targetObject, actionMode,true, wallMode);
+                ScriptAction(targetObject, actionMode,true, wallMode);
             }
         }
     }
 
-    private void scriptAction(GameObject targetObject, int mode, bool targetState, bool wallMode = false){
+    private void ScriptAction(GameObject targetObject, int mode, bool targetState, bool wallMode = false){
         switch (mode) {
             case 0:
                 if (!wallMode)targetObject.SetActive(targetState);
@@ -63,31 +63,38 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
 
     
     #if UNITY_EDITOR && !COMPILER_UDONSHARP
-    public void importUsernames(String[] importedUsernames){
+    public void ImportUsernames(String[] importedUsernames){
         userName=importedUsernames;
         Debug.Log("Username Imported");
     }
-    public void importTargets(GameObject[] importedGameObjects){
+
+    public void ImportLockData(GameObject[] l_gameObject, int[] l_modes, bool[] l_allowOwner, bool[] l_wallModes){
+        targetObjects = l_gameObject;
+        actionMode = l_modes;
+        allowInstanceOwner = l_allowOwner;
+        wallModes = l_wallModes;
+    }
+    public void ImportTargets(GameObject[] importedGameObjects){
         targetObjects = importedGameObjects;
         Debug.Log("Target GameObjects Imported");
     }
-    public void importModes(int[] importedModes){
+    public void ImportModes(int[] importedModes){
         actionMode = importedModes;
         Debug.Log("Action Modes Imported");
     }
-    public void importAllowOwner(bool[] importedAllowOwner){
+    public void ImportAllowOwner(bool[] importedAllowOwner){
         allowInstanceOwner = importedAllowOwner;
         Debug.Log("Allow Instance Owner Settings Imported");
     }
-    public void importWallModes(bool[] importedWallModes){
+    public void ImportWallModes(bool[] importedWallModes){
         wallModes = importedWallModes;
         Debug.Log("Wall Mode Settings Imported");
     }
-    /* Export Functions (not in use)
-    public String[] exportUsernames(){
+    // Export Functions (not in use)
+    public String[] ExportUsernames(){
         return userName;
     }
-    */
+    
     #endif
     
 }

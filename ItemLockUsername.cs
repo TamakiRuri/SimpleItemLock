@@ -40,7 +40,7 @@ public class ItemLockUsername : UdonSharpBehaviour
     void Start()
     {
         if (targetObject == null) targetObject = gameObject;
-        shouldOn = userCheck();
+        shouldOn = UserCheck();
         if (actionMode == 1) {
             targetCollider = targetObject.GetComponent<Collider>();
             if (targetCollider == null) {
@@ -49,10 +49,10 @@ public class ItemLockUsername : UdonSharpBehaviour
                 return;
             }
         }
-        enableItemorCollider();
+        EnableItemorCollider();
     }
 
-    private bool userCheck()
+    private bool UserCheck()
     {
         String localPlayer = Networking.LocalPlayer.displayName;
         if (Networking.LocalPlayer.isInstanceOwner && allowInstanceOwner)
@@ -94,7 +94,7 @@ public class ItemLockUsername : UdonSharpBehaviour
         }
     }
 
-    private void enableItemorCollider()
+    private void EnableItemorCollider()
     {
         switch (actionMode)
         {
@@ -111,10 +111,14 @@ public class ItemLockUsername : UdonSharpBehaviour
         }
     }
     #if UNITY_EDITOR && !COMPILER_UDONSHARP
-    public void importUsernames(String[] importedUsernames){
+    public void ImportUsernames(String[] importedUsernames){
         userName=importedUsernames;
         Debug.Log("Username Imported");
     }
     #endif
+
+    public String[] ExportUsernames(){
+        return userName;
+    }
 
 }

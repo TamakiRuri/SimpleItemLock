@@ -32,21 +32,21 @@ public class ItemLockCenter : UdonSharpBehaviour
     [SerializeField]private bool wallMode = false;
     void Start()
     {
-        scriptAction(actionMode, false);
-        enableItemorCollider(actionMode);
+        ScriptAction(actionMode, false);
+        EnableItemorCollider(actionMode);
     }
-    private void enableItemorCollider(int actionMode){
+    private void EnableItemorCollider(int actionMode){
         String localPlayer = Networking.LocalPlayer.displayName;
         if(Networking.LocalPlayer.isInstanceOwner && allowInstanceOwner){
-            scriptAction(actionMode,true);
+            ScriptAction(actionMode,true);
         }
         for (int i =0; i < userName.Length; i++){
             if (localPlayer == userName[i]){
-                scriptAction(actionMode,true);
+                ScriptAction(actionMode,true);
             }
         }
     }
-    private void scriptAction(int mode, bool targetState){
+    private void ScriptAction(int mode, bool targetState){
         switch (mode) {
             case 0:
             foreach(GameObject _gameObject in targetObjects){
@@ -68,9 +68,12 @@ public class ItemLockCenter : UdonSharpBehaviour
         
     }
     #if UNITY_EDITOR && !COMPILER_UDONSHARP
-    public void importUsernames(String[] importedUsernames){
+    public void ImportUsernames(String[] importedUsernames){
         userName=importedUsernames;
         Debug.Log("Username Imported");
+    }
+    public String[] ExportUsernames(){
+        return userName;
     }
     #endif
 }

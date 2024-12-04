@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRC.Udon;
 
 public class ItemLockDatabase : MonoBehaviour
 {
@@ -31,10 +30,10 @@ public class ItemLockDatabase : MonoBehaviour
     [SerializeField] private GameObject controlCenter;
     
 
-    public void importUsernames(String[] l_usernames){
+    public void ImportUsernames(String[] l_usernames){
         usernames = l_usernames;
     }
-    public void importObjectData(GameObject[] l_objects, int[] l_modes, bool[] l_allowOwner, bool[] l_wallModes){
+    public void ImportObjectData(GameObject[] l_objects, int[] l_modes, bool[] l_allowOwner, bool[] l_wallModes){
         ItemLockList[] l_list = new ItemLockList[l_objects.Length];
         for (int i = 0; i < l_allowOwner.Length; i++){
             ItemLockList l_entry = new ItemLockList(l_objects[i], l_modes[i], l_allowOwner[i], l_wallModes[i]);
@@ -42,35 +41,35 @@ public class ItemLockDatabase : MonoBehaviour
         }
         targetObjects = l_list;
     }
-    public String[] exportUserData(){
+    public String[] ExportUserData(){
         String[] l_usernames = new String[usernames.Length];
         for (int i = 0; i < usernames.Length; i++){
             l_usernames[i] = usernames[i];
         }
         return l_usernames;
     }
-    public GameObject[] exportObjectData(){
+    public GameObject[] ExportObjectData(){
         GameObject[] l_objects = new GameObject[targetObjects.Length];
         for (int i = 0; i < targetObjects.Length; i++){
             l_objects[i] = targetObjects[i].targetObject;
         }
         return l_objects;
     }
-    public int[] exportModeData(){
+    public int[] ExportModeData(){
         int[] l_modes = new int[targetObjects.Length];
         for (int i = 0; i < targetObjects.Length; i++){
             l_modes[i] = targetObjects[i].targetMode;
         }
         return l_modes;
     }
-    public bool[] exportAllowOwnerData(){
+    public bool[] ExportAllowOwnerData(){
         bool[] l_allowOwner = new bool[targetObjects.Length];
         for (int i = 0; i < targetObjects.Length; i++){
             l_allowOwner[i] = targetObjects[i].targetAllowOwner;
         }
         return l_allowOwner;
     }
-    public bool[] exportWallData(){
+    public bool[] ExportWallData(){
         bool[] l_wallMode = new bool[targetObjects.Length];
         for (int i = 0; i < targetObjects.Length; i++){
             l_wallMode[i] = targetObjects[i].targetWallMode;
@@ -78,13 +77,11 @@ public class ItemLockDatabase : MonoBehaviour
         return l_wallMode;
     }
 
-    public void generateDatatoCenter(){
-        var controlCenterUdon = (UdonBehaviour)controlCenter.GetComponent(typeof(UdonBehaviour));
-        controlCenterUdon.SendMessage("importUsernames", usernames);
-        controlCenterUdon.SendMessage("importTargets", exportObjectData());
-        controlCenterUdon.SendMessage("importModes", exportModeData());
-        controlCenterUdon.SendMessage("importAllowOwner", exportAllowOwnerData());
-        controlCenterUdon.SendMessage("importWallModes", exportWallData());
+    public void GenerateDatatoCenter(){
+        if (controlCenter == null) controlCenter = gameObject;
+        ItemLockCenterAdvanced centerClass = controlCenter.GetComponent<ItemLockCenterAdvanced>();
+        centerClass.ImportUsernames(usernames);
+        centerClass.ImportLockData(ExportObjectData(),ExportModeData(),ExportAllowOwnerData(),ExportWallData());
     }
 }
 

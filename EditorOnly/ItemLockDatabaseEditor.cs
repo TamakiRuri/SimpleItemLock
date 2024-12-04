@@ -7,19 +7,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
-using VRC.Udon;
 
 [CustomEditor(typeof(ItemLockDatabase))]
 public class ItemLockDatabaseEditor : Editor
 {
-    GameObject otherLock = null;
+    GameObject targetLock = null;
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
         ItemLockDatabase managedScript = (ItemLockDatabase)target;
         if (GUILayout.Button("Generate Data")){
             try {
-            managedScript.generateDatatoCenter();
+            managedScript.GenerateDatatoCenter();
             }
             catch (Exception e){
                 throw e;
@@ -28,18 +27,21 @@ public class ItemLockDatabaseEditor : Editor
         }
 
         EditorGUILayout.LabelField("");
-        EditorGUILayout.LabelField("Copy Usernames Data");
-        otherLock = (GameObject)EditorGUILayout.ObjectField("Target Lock", otherLock, typeof(GameObject), true);
+        EditorGUILayout.LabelField("Copy Username");
+        targetLock = (GameObject)EditorGUILayout.ObjectField("Target Lock", targetLock, typeof(GameObject), true);
         
-        if (GUILayout.Button("Copy Usernames Data")){
+        if (GUILayout.Button("Copy Username")){
             try {
-                if(otherLock.GetComponent<ItemLockDatabase>()!= null){
-                    otherLock.GetComponent<ItemLockDatabase>().importUsernames(((ItemLockDatabase)target).exportUserData());
-                    otherLock.GetComponent<ItemLockDatabase>().generateDatatoCenter();
+                if(targetLock.GetComponent<ItemLockDatabase>()!= null){
+                    targetLock.GetComponent<ItemLockDatabase>().ImportUsernames(managedScript.ExportUserData());
+                    targetLock.GetComponent<ItemLockDatabase>().GenerateDatatoCenter();
                 }
-                else {
-                    ((UdonBehaviour)otherLock.GetComponent<UdonBehaviour>()).SendMessage("importUsernames", ((ItemLockDatabase)target).exportUserData());
+                else if (targetLock.GetComponent<ItemLockCenter>()!= null){
+                    targetLock.GetComponent<ItemLockCenter>().ImportUsernames(managedScript.ExportUserData());
                 }
+                else if (targetLock.GetComponent<ItemLockUsername>()!= null)
+                targetLock.GetComponent<ItemLockUsername>().ImportUsernames(managedScript.ExportUserData());
+                else Debug.LogError("ItemLockDatabase: Cannot find ItemLock script in target lock.");
             }
             catch (Exception e){
                 throw e;
