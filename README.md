@@ -28,6 +28,8 @@ Use wall mode to make whitelisted players to go through certain walls etc.
 
 ### 注意事項 / Limitations
 
+**Advanced Prefab はUnpackしてからご利用ください。自動導入はPrefabに動作しません。**
+
 ジョイン時に実行されるため、ターゲットオブジェクトをスイッチでオンにするとスクリプトが無効になります。
 
 そのため、ワールドでユーザーを追加したり、削除したりすることができません。
@@ -35,6 +37,8 @@ Use wall mode to make whitelisted players to go through certain walls etc.
 同じオブジェクトに複数のItem Lockに登録した場合はサポート対象外です。
 
 Beta-b4 から、Stack Overflowの影響で、導入ツールを削除しました。
+
+**Please unpack the advanced prefab before using it. Auto generate won't work in prefabs.**
 
 This script will be run at join, thus enabling the targets object with switches will make this script useless.
 
@@ -56,9 +60,9 @@ From Beta-b4, due to the Stack Overflow issue, the import tool is removed.
 
 #### Prefabを利用する / Use the prefab
 
-2種類のPrefabがあります。 Advancedでは、アイテム一つ一つでインスタンスオーナーの許可を編集したり、モードを選択したりすることができますが、毎回Generate Dataを押す必要があります。Advanced でないItem Lockでは、すべてのオブジェクトが同じ設定になります。設定の手順はほぼ同じです。
+2種類のPrefabがあります。 Advancedでは、アイテム一つ一つでインスタンスオーナーの許可を編集したり、モードを選択したりすることができますが、毎回Generate Dataを押す必要があります。Advanced でないItem Lockでは、すべてのオブジェクトが同じ設定になります。設定の手順はほぼ同じですが、Advanced PrefabはUnpackする必要があります。
 
-There are two types of prefabs. Advanced prefab allow editing modes and the options for allowing instance owner for each object, with a drawback of requiring clicking the Generate Data button every time the object is edited. The prefab without Advanced will let all target objects have the same settings.
+There are two types of prefabs. Advanced prefab allow editing modes and the options for allowing instance owner for each object, with a drawback of requiring clicking the Generate Data button every time the object is edited. The prefab without Advanced will let all target objects have the same settings. However, advanced prefab should be unpacked if you want to use it.
 
 右下の+マークを押しユーザー名を入力します。User Nameにあるすべてのユーザーがこのオブジェクトを操作できます。
 
