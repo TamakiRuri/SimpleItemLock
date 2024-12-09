@@ -14,12 +14,13 @@ public class ItemLockCenter : UdonSharpBehaviour
     [Header("Action Mode[0]アイテムが消える、[1]アイテムが触れなくなる")]
     [Header("予め[0]オブジェクト[1]コライダーを無効にするとよりセキュアになります")]
     [Header("全ての操作がJoin時に終わるため")]
-    [Header("スイッチでオブジェクト(コライダー)を強制的に有効にすると、このスクリプトが無効になります。")]
+    [Header("スイッチでオブジェクト(コライダー)を強制的に有効にするとロックが解除されます。")]
     
     
     [Header("Action Mode 0 will make the item disappear, 1 will make the item not touchable")]
     [Header("Deactivating[0]objects[1]colliders before uploading is recommanded for better security")]
-    [Header("However, this script could be overidden by a switch enabling the object(collider) directly")]
+    [Header("However, the item will be unlocked if a switch enables the object(collider) directly")]
+
     [Header(" ")]
 
 
@@ -30,21 +31,30 @@ public class ItemLockCenter : UdonSharpBehaviour
     [Header("In Wall Mode the function of the script become reversed (for creating walls that can only be go through by whitelisted users).")]
     [Header(" ")]
     [SerializeField]private bool wallMode = false;
+    private bool shouldOn = false;
     void Start()
     {
-        ScriptAction(actionMode, false);
-        EnableItemorCollider(actionMode);
+        shouldOn = UserCheck();
+        ScriptAction(actionMode, shouldOn);
     }
-    private void EnableItemorCollider(int actionMode){
+    private bool UserCheck()
+    {
         String localPlayer = Networking.LocalPlayer.displayName;
-        if(Networking.LocalPlayer.isInstanceOwner && allowInstanceOwner){
-            ScriptAction(actionMode,true);
+        if (Networking.LocalPlayer.isInstanceOwner && allowInstanceOwner)
+        {
+            return true;
         }
-        for (int i =0; i < userName.Length; i++){
-            if (localPlayer == userName[i]){
-                ScriptAction(actionMode,true);
+        else
+        {
+            for (int i = 0; i < userName.Length; i++)
+            {
+                if (localPlayer == userName[i])
+                {
+                    return true;
+                }
             }
         }
+        return false;
     }
     private void ScriptAction(int mode, bool targetState){
         switch (mode) {

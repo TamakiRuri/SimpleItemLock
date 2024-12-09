@@ -7,18 +7,21 @@ using UnityEngine;
 public class ItemLockDatabase : MonoBehaviour
 {
     [SerializeField] private String[] usernames;
-    
+    [Header("必ずプレハブをUnpackしてからお使いください")]
+    [Header("Please UNPACK this prefab before using.")]
+    [Header(" ")]
     [Header("Action Mode[0]アイテムが消える、[1]アイテムが触れなくなる")]
     [Header("予め[0]オブジェクト[1]コライダーを無効にするとよりセキュアになります")]
     [Header("全ての操作がJoin時に終わるため")]
-    [Header("スイッチでオブジェクト(コライダー)を強制的に有効にすると、このスクリプトが無効になります。")]
+    [Header("スイッチでオブジェクト(コライダー)を有効にするとロックが解除されます")]
     [Header("Wall Modeでは、動作が逆になります（壁などを一部の人だけがぬけるようにするなど）")]
-    [Header("導入が成功したあと、下のスクリプトにデータが表示されます")]
+    [Header("導入したあと、下のスクリプトにデータが表示されます")]
     [Header(" ")]
     [Header("Action Mode 0 will make the item disappear, 1 will make the item not touchable")]
     [Header("Deactivating[0]objects[1]colliders before uploading is recommanded for better security")]
-    [Header("However, this script could be overidden by a switch enabling the object(collider) directly")]
-    [Header("In Wall Mode the function of the script become reversed (for creating walls that can only be go through by whitelisted users).")]
+    [Header("However, the item will be unlocked if a switch enables the object(collider) directly")]
+    [Header("In Wall Mode the function of the script become reversed.")]
+    [Header("(for creating walls that can only be go through by whitelisted users)")]
     [Header("If the data is correctly imported, The script below will show the imported data")]
     [Header(" ")]
 

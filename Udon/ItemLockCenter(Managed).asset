@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 6
     - Name: 
       Entry: 7
       Data: 
@@ -119,7 +119,7 @@ MonoBehaviour:
       Data: 8|UnityEngine.HeaderAttribute, UnityEngine.CoreModule
     - Name: header
       Entry: 1
-      Data: "\u30B9\u30A4\u30C3\u30C1\u3067\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8(\u30B3\u30E9\u30A4\u30C0\u30FC)\u3092\u5F37\u5236\u7684\u306B\u6709\u52B9\u306B\u3059\u308B\u3068\u3001\u3053\u306E\u30B9\u30AF\u30EA\u30D7\u30C8\u304C\u7121\u52B9\u306B\u306A\u308A\u307E\u3059\u3002"
+      Data: "\u30B9\u30A4\u30C3\u30C1\u3067\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8(\u30B3\u30E9\u30A4\u30C0\u30FC)\u3092\u6709\u52B9\u306B\u3059\u308B\u3068\u30ED\u30C3\u30AF\u304C\u89E3\u9664\u3055\u308C\u307E\u3059\u3002"
     - Name: 
       Entry: 8
       Data: 
@@ -146,7 +146,7 @@ MonoBehaviour:
       Data: 11|UnityEngine.HeaderAttribute, UnityEngine.CoreModule
     - Name: header
       Entry: 1
-      Data: However, this script could be overidden by a switch enabling the object(collider)
+      Data: However, the item will be unlocked if a switch enables the object(collider)
         directly
     - Name: 
       Entry: 8
@@ -400,6 +400,60 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: userInList
+    - Name: $v
+      Entry: 7
+      Data: 29|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
+    - Name: <Name>k__BackingField
+      Entry: 1
+      Data: userInList
+    - Name: <UserType>k__BackingField
+      Entry: 7
+      Data: 30|System.RuntimeType, mscorlib
+    - Name: 
+      Entry: 1
+      Data: System.Boolean, mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <SystemType>k__BackingField
+      Entry: 9
+      Data: 30
+    - Name: <SyncMode>k__BackingField
+      Entry: 7
+      Data: System.Nullable`1[[UdonSharp.UdonSyncMode, UdonSharp.Runtime]], mscorlib
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: <IsSerialized>k__BackingField
+      Entry: 5
+      Data: false
+    - Name: _fieldAttributes
+      Entry: 7
+      Data: 31|System.Collections.Generic.List`1[[System.Attribute, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
     - Name: 
       Entry: 13
       Data: 

@@ -4,11 +4,11 @@
 
 Simple Item Lock はVRChatワールドで、アイテムを特定の人にしか触れない、または見えないようにするギミックです。
 
-コライダーに動作するため、ボタンやテレポーターなどにも動作します。
+オブジェクト本体、またはコライダーに動作するため、ボタンやテレポーターなどにも動作します。
 
 Simple Item Lock is a simple way to make your item being used or seen by using a white list.
 
-It works with colliders, so items like buttons and teleporters will also work.
+It works with game objects and colliders, so items like buttons and teleporters will also work.
 
 ### 特徴 / Features
 
@@ -30,9 +30,15 @@ Use wall mode to make whitelisted players to go through certain walls etc.
 
 **Advanced Prefab はUnpackしてからご利用ください。自動導入はPrefabに動作しません。**
 
-ジョイン時に実行されるため、ターゲットオブジェクトをスイッチでオンにするとスクリプトが無効になります。
+これは、Prefabのユーザー変更されていないフィールドにスクリプトでデータを入力しても保存されないためです。
+
+ジョイン時に実行されるため、ターゲットオブジェクトをスイッチでオンにするロックが解除されます。
 
 そのため、ワールドでユーザーを追加したり、削除したりすることができません。
+
+ただし、グローバルボタンをロックして、許可されたユーザーが適切な場合で利用することで、自由にオンオフできます。
+
+この場合では、そのスイッチオフにすればオブジェクトがまたロックされます。
 
 同じオブジェクトに複数のItem Lockに登録した場合はサポート対象外です。
 
@@ -40,11 +46,17 @@ Beta-b4 から、Stack Overflowの影響で、導入ツールを削除しまし�
 
 **Please unpack the advanced prefab before using it. Auto generate won't work in prefabs.**
 
-This script will be run at join, thus enabling the targets object with switches will make this script useless.
+This is because, in Unity, adding something to a unchanged prefab with a script won't be saved.
+
+This script will be run at join, thus enabling the targets object with switches will unlock the object.
 
 Therefore, adding or deleting whitelisted users in VRChat is not supported.
 
-Letting multiple Item Locks in the same object isn't something we tested, nor what we plan to support.
+However, by locking a global switch and letting whitelisted users using the switch when appropriate, you can enable or disable objects according to your needs.
+
+In this situation, you can lock your items agin by using the switch again.
+
+Using multiple Item Locks in the same object isn't something we tested, nor what we plan to support.
 
 From Beta-b4, due to the Stack Overflow issue, the import tool is removed.
 
@@ -90,7 +102,7 @@ Drag and drop ItemLockUsername script to target object.
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
-Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効化モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。Wall Modeでは、特定の人しか通れない壁が作れます。
+Action Mode 0では許可されないユーザーがオブジェクトを見えなくなり（無効化モード）、1では動かせないようになります。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。Wall Modeでは、特定の人しか通れない壁が作れます。
 
 At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
 
