@@ -16,7 +16,7 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
     [Header("Adding or moving objects could potentially break the program")]
     [Header("However, the item will be unlocked if a switch enables the object(collider) directly")]
     [Header(" ")]
-    [SerializeField] private String[] userName;
+    [SerializeField] private String[] usernames;
     [SerializeField] private GameObject[] targetObjects;
     [SerializeField] private int[] actionMode;
     [SerializeField] private bool[] allowInstanceOwner;
@@ -38,9 +38,9 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
     private bool UserListCheck()
     {
         String localPlayer = Networking.LocalPlayer.displayName;
-            for (int i = 0; i < userName.Length; i++)
+            for (int i = 0; i < usernames.Length; i++)
             {
-                if (localPlayer == userName[i])
+                if (localPlayer == usernames[i])
                 {
                     return true;
                 }
@@ -83,7 +83,7 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
 #if UNITY_EDITOR && !COMPILER_UDONSHARP
     public void ImportUsernames(String[] importedUsernames)
     {
-        userName = importedUsernames;
+        usernames = importedUsernames;
         Debug.Log("Username Imported");
     }
 
@@ -117,7 +117,7 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
     // Export Functions (not in use)
     public String[] ExportUsernames()
     {
-        return userName;
+        return usernames;
     }
 
 #endif

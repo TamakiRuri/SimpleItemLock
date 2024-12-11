@@ -11,8 +11,8 @@ public class ItemLockBasic : UdonSharpBehaviour
     [Header("If no object is attached, current object will be automatically set up")]
     [Header(" ")]
     [SerializeField] private GameObject targetObject;
-    [SerializeField] private String[] userName;
-
+    [SerializeField] private String[] usernames;
+    
     [Header("Action Mode[0]アイテムが消える、[1]アイテムが触れなくなる")]
     [Header("[1]予めコライダーを無効にするとよりセキュアになります")]
     [Header("[0]このスクリプトがオブジェクトにアタッチしたまま無効にしないでください")]
@@ -66,9 +66,9 @@ public class ItemLockBasic : UdonSharpBehaviour
         }
         else
         {
-            for (int i = 0; i < userName.Length; i++)
+            for (int i = 0; i < usernames.Length; i++)
             {
-                if (localPlayer == userName[i])
+                if (localPlayer == usernames[i])
                 {
                     return true;
                 }
@@ -98,14 +98,14 @@ public class ItemLockBasic : UdonSharpBehaviour
 #if UNITY_EDITOR && !COMPILER_UDONSHARP
     public void ImportUsernames(String[] importedUsernames)
     {
-        userName = importedUsernames;
+        usernames = importedUsernames;
         Debug.Log("Username Imported");
     }
 
 
     public String[] ExportUsernames()
     {
-        return userName;
+        return usernames;
     }
 #endif
 }

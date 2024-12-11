@@ -7,7 +7,7 @@ using VRC.Udon;
 
 public class ItemLockCenter : UdonSharpBehaviour
 {
-    [SerializeField]private String[] userName;
+    [SerializeField]private String[] usernames;
     [SerializeField]private GameObject[] targetObjects;
 
 
@@ -46,9 +46,9 @@ public class ItemLockCenter : UdonSharpBehaviour
         }
         else
         {
-            for (int i = 0; i < userName.Length; i++)
+            for (int i = 0; i < usernames.Length; i++)
             {
-                if (localPlayer == userName[i])
+                if (localPlayer == usernames[i])
                 {
                     return true;
                 }
@@ -79,11 +79,11 @@ public class ItemLockCenter : UdonSharpBehaviour
     }
     #if UNITY_EDITOR && !COMPILER_UDONSHARP
     public void ImportUsernames(String[] importedUsernames){
-        userName=importedUsernames;
+        usernames=importedUsernames;
         Debug.Log("Username Imported");
     }
     public String[] ExportUsernames(){
-        return userName;
+        return usernames;
     }
     #endif
 }

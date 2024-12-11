@@ -80,7 +80,7 @@ From RC-b7, some variable names are changed. So in case of an update, please mak
 
 There are two types of prefabs. Advanced prefab allow editing modes and the options for allowing instance owner for each object, with a drawback of requiring clicking the Generate Data button every time the object is edited. The prefab without Advanced will let all target objects have the same settings. However, advanced prefab should be unpacked if you want to use it.
 
-右下の+マークを押しユーザー名を入力します。User Nameにあるすべてのユーザーがこのオブジェクトを操作できます。
+右下の+マークを押しユーザー名を入力します。Usernamesにあるすべてのユーザーがこのオブジェクトを操作できます。
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
@@ -102,7 +102,7 @@ In the Advanced prefab, you can put any other objects with ItemLockBasic or Item
 
 Drag and drop ItemLockBasic script to target object.
 
-右下の+マークを押してユーザー名を入力してください。User Nameにあるすべてのユーザーがこのオブジェクトを操作できます。
+右下の+マークを押してユーザー名を入力してください。Usernamesにあるすべてのユーザーがこのオブジェクトを操作できます。
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
