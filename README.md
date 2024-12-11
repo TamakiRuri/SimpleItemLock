@@ -18,7 +18,7 @@ It works with game objects and colliders, so items like buttons and teleporters 
 
 2つ以上共存可能 / Support for multiple locks to be used at same time.
 
-ジョイン時に実行 / Run at join.
+Join時に実行 / Run at join.
 
 パフォーマンス影響小 / Low performance cost.
 
@@ -44,6 +44,8 @@ Use wall mode to make whitelisted players to go through certain walls etc.
 
 Beta-b4 から、Stack Overflowの影響で、導入ツールを削除しました。
 
+RC-b7 から、変数名の変更がありますので、更新する時に必ずバックアップを取ってからImportしてください。
+
 **Please unpack the advanced prefab before using it. Auto generate won't work in prefabs.**
 
 This is because, in Unity, adding something to a unchanged prefab with a script won't be saved.
@@ -59,6 +61,8 @@ In this situation, you can lock your items agin by using the switch again.
 Using multiple Item Locks in the same object isn't something we tested, nor what we plan to support.
 
 From Beta-b4, due to the Stack Overflow issue, the import tool is removed.
+
+From RC-b7, some variable names are changed. So in case of an update, please make sure you have a backup.
 
 ### 導入
 
@@ -88,15 +92,15 @@ Create the item list. At action mode 0 only whitelisted users can see the object
 
 **Click the Generate Data Button for Advanced Prefab. This should be done for every time the list is edited.**
 
-Advancedバージョンでは、ユーザー名コピー機能があります。他のPrefab（非Advanced含む）またはItemLockUsernameがついているオブジェクトを下のTarget LockにいれてCopy Usernamesを押すとユーザー名が入れたオブジェクトにコピーされます。
+Advancedバージョンでは、ユーザー名コピー機能があります。他のPrefab（非Advanced含む）またはItemLockBasicがついているオブジェクトを下のTarget LockにいれてCopy Usernamesを押すとユーザー名が入れたオブジェクトにコピーされます。
 
-In the Advanced prefab, you can put any other objects with ItemLockUsername or Item Lock Prefabs (Including non-advanced ones) and click Copy Usernames to copy the stored usernames to the target object.
+In the Advanced prefab, you can put any other objects with ItemLockBasic or Item Lock Prefabs (Including non-advanced ones) and click Copy Usernames to copy the stored usernames to the target object.
 
-#### 一つオブジェクトのみ利用する / Use single object script
+#### 一つオブジェクトのみ利用する (Basic) / Use single object script (Basic)
 
-対象オブジェクトにItemLockUsernameというスクリプトをD&Dします。
+対象オブジェクトにItemLockBasicというスクリプトをD&Dします。
 
-Drag and drop ItemLockUsername script to target object.
+Drag and drop ItemLockBasic script to target object.
 
 右下の+マークを押してユーザー名を入力してください。User Nameにあるすべてのユーザーがこのオブジェクトを操作できます。
 

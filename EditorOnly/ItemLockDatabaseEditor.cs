@@ -39,8 +39,8 @@ public class ItemLockDatabaseEditor : Editor
                 else if (targetLock.GetComponent<ItemLockCenter>()!= null){
                     targetLock.GetComponent<ItemLockCenter>().ImportUsernames(managedScript.ExportUserData());
                 }
-                else if (targetLock.GetComponent<ItemLockUsername>()!= null)
-                targetLock.GetComponent<ItemLockUsername>().ImportUsernames(managedScript.ExportUserData());
+                else if (targetLock.GetComponent<ItemLockBasic>()!= null)
+                targetLock.GetComponent<ItemLockBasic>().ImportUsernames(managedScript.ExportUserData());
                 else throw new ArgumentException("ItemLockDatabase: Cannot find ItemLock script in target lock.");
             }
             catch (Exception e){

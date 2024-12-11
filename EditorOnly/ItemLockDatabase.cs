@@ -61,21 +61,21 @@ public class ItemLockDatabase : MonoBehaviour
     public int[] ExportModeData(){
         int[] l_modes = new int[targetObjects.Length];
         for (int i = 0; i < targetObjects.Length; i++){
-            l_modes[i] = targetObjects[i].targetMode;
+            l_modes[i] = targetObjects[i].mode;
         }
         return l_modes;
     }
     public bool[] ExportAllowOwnerData(){
         bool[] l_allowOwner = new bool[targetObjects.Length];
         for (int i = 0; i < targetObjects.Length; i++){
-            l_allowOwner[i] = targetObjects[i].targetAllowOwner;
+            l_allowOwner[i] = targetObjects[i].allowInstanceOwner;
         }
         return l_allowOwner;
     }
     public bool[] ExportWallData(){
         bool[] l_wallMode = new bool[targetObjects.Length];
         for (int i = 0; i < targetObjects.Length; i++){
-            l_wallMode[i] = targetObjects[i].targetWallMode;
+            l_wallMode[i] = targetObjects[i].wallMode;
         }
         return l_wallMode;
     }
@@ -91,14 +91,14 @@ public class ItemLockDatabase : MonoBehaviour
 [Serializable]public class ItemLockList{
     public ItemLockList(GameObject l_object = null, int l_mode = 0, bool l_allowOwner = false, bool l_wallMode = false){
         targetObject = l_object;
-        targetMode = l_mode;
-        targetAllowOwner = l_allowOwner;
-        targetWallMode = l_wallMode;
+        mode = l_mode;
+        allowInstanceOwner = l_allowOwner;
+        wallMode = l_wallMode;
     }
     public GameObject targetObject;
-    public int targetMode;
-    public bool targetAllowOwner;
+    public int mode;
+    public bool allowInstanceOwner;
 
-    public bool targetWallMode;
+    public bool wallMode;
 }
 #endif

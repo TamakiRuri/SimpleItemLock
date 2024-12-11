@@ -5,7 +5,7 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-public class ItemLockUsername : UdonSharpBehaviour
+public class ItemLockBasic : UdonSharpBehaviour
 {
     [Header("何も入れない場合、現在のオブジェクトが設定されます。")]
     [Header("If no object is attached, current object will be automatically set up")]
