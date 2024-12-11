@@ -6,7 +6,7 @@ Simple Item Lock はVRChatワールドで、アイテムを特定の人にしか
 
 オブジェクト本体、またはコライダーに動作するため、ボタンやテレポーターなどにも動作します。
 
-Simple Item Lock is a simple way to make your item being used or seen by using a white list.
+Simple Item Lock is a simple way to prevent your item being used or seen by using a white list.
 
 It works with game objects and colliders, so items like buttons and teleporters will also work.
 
@@ -14,7 +14,7 @@ It works with game objects and colliders, so items like buttons and teleporters 
 
 コライダーモード、無効化モード選択可能 / Collider mode and disable mode available.
 
-選べるインスタンスオーナー許可 / Allow instance owner option available.
+インスタンスオーナー許可モード / Allow instance owner option available.
 
 2つ以上共存可能 / Support for multiple locks to be used at same time.
 
@@ -27,6 +27,8 @@ Wall Mode: 指定した人だけがぬける壁（コライダー）などを作
 Use wall mode to make whitelisted players to go through certain walls etc.
 
 ### 注意事項 / Limitations
+
+いたずら防止のためのギミックです。すべての状況に対応するものではありません。
 
 **Advanced Prefab はUnpackしてからご利用ください。自動導入はPrefabに動作しません。**
 
@@ -45,6 +47,8 @@ Use wall mode to make whitelisted players to go through certain walls etc.
 Beta-b4 から、Stack Overflowの影響で、導入ツールを削除しました。
 
 RC-b7 から、変数名の変更がありますので、更新する時に必ずバックアップを取ってからImportしてください。
+
+This is designed to prevent unwanted pranks. This may not work for all types of attacks.
 
 **Please unpack the advanced prefab before using it. Auto generate won't work in prefabs.**
 
@@ -84,7 +88,7 @@ There are two types of prefabs. Advanced prefab allow editing modes and the opti
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
-アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されないユーザーがオブジェクトを見えなくなり（無効化モード）、1では動かせないようになります。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。WallModeでは、指定した人だけがぬける壁（コライダー）などが作れます。
+アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されていないプレイヤーがオブジェクトを見えなくなり（無効化モード）、1では動かせないようになります。Allow Instance Ownerを有効にすれば、インスタンスを作ったプレイヤーが許可されます。WallModeでは、許可されたプレイヤーだけがぬける壁（コライダー）などが作れます。
 
 Create the item list. At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls etc.
 
@@ -106,32 +110,6 @@ Drag and drop ItemLockBasic script to target object.
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
-Action Mode 0では許可されないユーザーがオブジェクトを見えなくなり（無効化モード）、1では動かせないようになります。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。Wall Modeでは、特定の人しか通れない壁が作れます。
+Action Mode 0では許可されていないプレイヤーがオブジェクトを見えなくなり（無効化モード）、1では動かせないようになります。Allow Instance Ownerを有効にすれば、インスタンスを作ったプレイヤーが許可されます。Wall Modeでは、許可されたプレイヤーしか通れない壁が作れます。
 
-At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
-
-<!-- #### (非推奨 / Not Recommended)導入ツールを利用する / Use the import tool
-
-**UIToolkitのバグより、2つ以上のアイテム追加するとUnityがフリーズ、または落ちる可能性があります。必ず前のアイテムに何かを入力してから次のアイテムを追加してください。**
-
-**Because of a bug in UIToolkit, adding more than 1 item at once may cause Unity to freeze or crash. FILL THE LAST THING YOU ADDED BEFORE ADDING ANOTHER ITEM**
-
-ツールバーのToolsタブで Studio Saphir/Item Lock Settings を開きます。
-
-Open Tools/Studio Saphir/Item Lock Settings at tool bar.
-
-ユーザー名を入力します。入力できない場合では、右下の+マークを押してください。User Nameにあるすべてのユーザーがこのオブジェクトを操作できます。
-
-Using the + mark at bottom right corner and input usernames for whitelisted users.
-
-アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されないユーザーがオブジェクトを見えない（無効モード）、1では動かせないです。Allow Instance Ownerを有効にすれば、インスタンスを作った人が許可されます。WallModeでは、指定した人だけがぬける壁（コライダー）、使えるテレポーターなどを作れます。
-
-Create the item list. At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls or use teleporters etc.
-
-**一番上のGenerate Dataを押す。この作業は毎回編集する時に必要になります。**
-
-**Click the Generate Data Button at top. This should be done for every time the list is edited.**
-
-ItemLockCenter(Managed)がシーンの中で配置されます。（動かさないようにしてください）Advanced Prefabと同じ方法で編集できます。
-
-ItemLockCenter(Managed) will be placed at the scene. (Do not move this object) You can edit this using the same ways as advanced prefabs. -->
+At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls etc.
