@@ -101,11 +101,11 @@ public class ItemLockBasic : UdonSharpBehaviour
         userName = importedUsernames;
         Debug.Log("Username Imported");
     }
-#endif
+
 
     public String[] ExportUsernames()
     {
         return userName;
     }
-
+#endif
 }
