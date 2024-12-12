@@ -89,6 +89,24 @@ public class ItemLockBasic : UdonSharpBehaviour
                 if (!wallMode) targetObject.GetComponent<Collider>().enabled = targetState;
                 else targetObject.GetComponent<Collider>().enabled = !targetState;
                 break;
+            case 2:
+                Collider[] t_colliders = targetObject.GetComponentsInChildren<Collider>();
+                if (t_colliders.Length!=0){
+                    if(!wallMode){
+                        foreach (Collider l_collider in t_colliders){
+                            l_collider.enabled = targetState;
+                        }
+                    }
+                    else {
+                        foreach (Collider l_collider in t_colliders){
+                            l_collider.enabled = !targetState;
+                        }
+                    }
+                }
+                else {
+                    Debug.LogError("Item Lock: No Collider Found");
+                }
+                break;
             default:
                 Debug.LogError("Item Lock: Action Mode Index Out Of Bound.");
                 Debug.LogError("Item Lock: Action Modeの入力にエラーを検出しました。");

@@ -12,27 +12,62 @@ It works with game objects and colliders, so items like buttons and teleporters 
 
 ### 特徴 / Features
 
-コライダーモード、無効化モード選択可能 / Collider mode and disable mode available.
-
-インスタンスオーナー許可モード / Allow instance owner option available.
-
 2つ以上共存可能 / Support for multiple locks to be used at same time.
 
 Join時に実行 / Run at join.
 
 パフォーマンス影響小 / Low performance cost.
 
-Wall Mode: 指定した人だけがぬける壁（コライダー）などを作れます。
+### 説明 / Information
+
+#### Mode 0 - 無効化モード/Disable Mode
+
+許可されていないプレイヤーにはオブジェクトが無効化され、存在しないようになります。Object Syncの場合ではTransformが同期されますが、許可されていないプレイヤーからはアイテムが見えません。ただし、スクリプトも同期されなくなり当たり判定も消えます。
+
+範囲: オブジェクト及び子オブジェクト（子オブジェクト自体は無効化されませんが、親オブジェクトが無効化された影響で無効になります。）
+
+使用例: スタッフ限定で、一般プレイヤーに表示する必要のないアイテムをロックする。たとえば、スタッフ専用エリア行きのテレポーター。
+
+Only for whitelisted players the object is enabled. For un-whitelisted players, the object can be seen as non-existent until it's unlocked.
+
+Target: target object and child objects. (Child objects won't be directed disabled. But it will appear to be disabled because the parent object is disabled.)
+
+#### Mode 1 - コライダーモード/Collider Mode
+
+許可されていないプレイヤーにはオブジェクトのコライダーが無効化され、インタラクトできなくなります。それ以外のスクリプトは正常に同期されます。ただし、アイテムの当たり判定もなくなりますので、ドアなどに利用する場合では追加のコライダーが必要です。
+
+範囲: オブジェクト自身（子オブジェクトを含まず）（オブジェクトにコライダーがある必要があります。子オブジェクトにある場合では、子オブジェクトを入れてください。）
+
+使用例: スタッフ用のアイテムで、同期するパラメータがある場合や、アイテム自身を隠す必要がない場合でアイテムをロックする。たとえば、プレイヤーを掴めるためのギミックをロックする。
+
+Only whitelisted users will be able to interact or grab the item. The Collision will also disappear. So if you're going to place this in a door, please add another collider to make sure other players can't go through it directly.
+
+Target: target object itself. Child objects won't be affected. The target object should have collider directly attached.
+
+#### インスタンスオーナー許可モード / Allow instance owner
+
+インスタンスを立てたプレイヤーを許可します。
+
+使用例: 公開ワールドでの利用や、ユーザー名追加し忘れがある場合での救済措置など。
+
+Allow the player who create this instance to use the item.
+
+#### 壁モード / Wall Mode
+
+動作が逆になります。（Mode 0 の場合: 許可されていないプレイヤーにオブジェクトが表示されるが、許可されたプレイヤーに表示されない）
+
+許可されたプレイヤーだけがぬける壁（コライダー）などを作れます。
 
 Use wall mode to make whitelisted players to go through certain walls etc.
+
 
 ### 注意事項 / Limitations
 
 いたずら防止のためのギミックです。すべての状況に対応するものではありません。
 
-**Advanced Prefab はUnpackしてからご利用ください。自動導入はPrefabに動作しません。**
+**Advanced Prefab はUnpackしてからご利用ください。Prefabのままでは正常に動作しません。**
 
-これは、Prefabのユーザー変更されていないフィールドにスクリプトでデータを入力しても保存されないためです。
+これは、Prefabにあるユーザーに変更されていないフィールドに、スクリプトでデータを入力しても保存されないためです。
 
 ジョイン時に実行されるため、ターゲットオブジェクトをスイッチでオンにするロックが解除されます。
 
@@ -42,7 +77,7 @@ Use wall mode to make whitelisted players to go through certain walls etc.
 
 この場合では、そのスイッチオフにすればオブジェクトがまたロックされます。
 
-同じオブジェクトに複数のItem Lockに登録した場合はサポート対象外です。
+同じオブジェクトを複数のItem Lockに登録した場合はサポート対象外です。
 
 Beta-b4 から、Stack Overflowの影響で、導入ツールを削除しました。
 
@@ -50,7 +85,7 @@ RC-b7 から、変数名の変更がありますので、更新する時に必�
 
 This is designed to prevent unwanted pranks. This may not work for all types of attacks.
 
-**Please unpack the advanced prefab before using it. Auto generate won't work in prefabs.**
+**Please unpack the advanced prefab before using it. Generate Data function won't work if it's not unpacked.**
 
 This is because, in Unity, adding something to a unchanged prefab with a script won't be saved.
 
@@ -84,13 +119,13 @@ From RC-b7, some variable names are changed. So in case of an update, please mak
 
 There are two types of prefabs. Advanced prefab allow editing modes and the options for allowing instance owner for each object, with a drawback of requiring clicking the Generate Data button every time the object is edited. The prefab without Advanced will let all target objects have the same settings. However, advanced prefab should be unpacked if you want to use it.
 
-右下の+マークを押しユーザー名を入力します。Usernamesにあるすべてのユーザーがこのオブジェクトを操作できます。
+右下の+マークを押しユーザー名を入力します。Usernamesにあるすべてのユーザーがオブジェクトを操作できます。
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
-アイテムリストを作ります。Target Object は対象アイテムです。Action Mode 0では許可されていないプレイヤーがオブジェクトを見えなくなり（無効化モード）、1では動かせないようになります。Allow Instance Ownerを有効にすれば、インスタンスを作ったプレイヤーが許可されます。WallModeでは、許可されたプレイヤーだけがぬける壁（コライダー）などが作れます。
+アイテムリストを作ります。Target Object は対象アイテムです。Modeなどの説明は上にある説明にあります。
 
-Create the item list. At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls etc.
+Create the item list. Information about modes and other settings are above.
 
 **Advanced PrefabではGenerate Dataを押す必要があります。この作業は毎回編集する時に必要になります。**
 
@@ -110,6 +145,6 @@ Drag and drop ItemLockBasic script to target object.
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
-Action Mode 0では許可されていないプレイヤーがオブジェクトを見えなくなり（無効化モード）、1では動かせないようになります。Allow Instance Ownerを有効にすれば、インスタンスを作ったプレイヤーが許可されます。Wall Modeでは、許可されたプレイヤーしか通れない壁が作れます。
+アイテムリストを作ります。Target Object は対象アイテムです。Modeなどの説明は上にある説明にあります。
 
-At action mode 0 only whitelisted users can see the object, and at 1 only they can move the object. Use wall mode to make whitelisted players to go through certain walls etc.
+Create the item list. Information about modes and other settings are above.

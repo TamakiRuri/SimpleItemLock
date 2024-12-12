@@ -9,12 +9,9 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
 {
     [Header("このScriptのデータは自動生成されます")]
     [Header("アイテムを動かしたりすることは、エラーを引き起こす恐れがあります。")]
-    [Header("全ての操作がJoin時に終わるため")]
-    [Header("スイッチでオブジェクト(コライダー)を有効にするとロックが解除されます。")]
 
     [Header("The data in this script is auto generated")]
     [Header("Adding or moving objects could potentially break the program")]
-    [Header("However, the item will be unlocked if a switch enables the object(collider) directly")]
     [Header(" ")]
     [SerializeField] private String[] usernames;
     [SerializeField] private GameObject[] targetObjects;
@@ -69,7 +66,24 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
             case 1:
                 if (!wallMode) targetObject.GetComponent<Collider>().enabled = targetState;
                 else targetObject.GetComponent<Collider>().enabled = !targetState;
-
+                break;
+            case 2:
+                Collider[] t_colliders = targetObject.GetComponentsInChildren<Collider>();
+                if (t_colliders.Length!=0){
+                    if(!wallMode){
+                        foreach (Collider l_collider in t_colliders){
+                            l_collider.enabled = targetState;
+                        }
+                    }
+                    else {
+                        foreach (Collider l_collider in t_colliders){
+                            l_collider.enabled = !targetState;
+                        }
+                    }
+                }
+                else {
+                    Debug.LogError("Item Lock: No Collider Found");
+                }
                 break;
             default:
                 Debug.LogError("Item Lock: Action Mode Index Out Of Bound.");
