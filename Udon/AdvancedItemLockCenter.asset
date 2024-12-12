@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: AdvancedItemLockCenter
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 85d3f80d0e0aaa2689c93c6b84ce7154, type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 011be8dc9b48e9142b5c18f25683c2b7,
+    type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: f5d456cddfa27a24493f9a3f2989a632, type: 3}

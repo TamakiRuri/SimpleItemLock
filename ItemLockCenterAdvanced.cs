@@ -28,62 +28,46 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
         if (wallModes.Length == 0) wallModes = new bool[targetObjects.Length];
         for (int i = 0; i < targetObjects.Length; i++)
         {
-            EnableItemorCollider(targetObjects[i], actionMode[i], allowInstanceOwner[i], wallModes[i]);
+            // This shouldOn is the same as Lock Center and basic
+            bool shouldOn = (Networking.LocalPlayer.isInstanceOwner && allowInstanceOwner[i]) || userInList;
+            // (shouldOn && !wallModes[i]) || (!shouldOn && wallModes[i])
+            // in non wall mode, output == shouldOn
+            // in wall mode, output == !shouldOn
+            bool targetState = (shouldOn && !wallModes[i]) || (!shouldOn && wallModes[i]);
+            ScriptAction(targetObjects[i], actionMode[i], targetState);
         }
     }
     // UserCheck. Different funcion name to prevent misunderstandings. THIS DOES NOT CHECK INSTANCE OWNER.
     private bool UserListCheck()
     {
         String localPlayer = Networking.LocalPlayer.displayName;
-            for (int i = 0; i < usernames.Length; i++)
+        for (int i = 0; i < usernames.Length; i++)
+        {
+            if (localPlayer == usernames[i])
             {
-                if (localPlayer == usernames[i])
-                {
-                    return true;
-                }
+                return true;
             }
+        }
         return false;
     }
-    private void EnableItemorCollider(GameObject targetObject, int actionMode, bool allowInstanceOwner, bool wallMode)
-    {
-        if (Networking.LocalPlayer.isInstanceOwner && allowInstanceOwner)
-        {
-            ScriptAction(targetObject, actionMode, true, wallMode);
-        }
-        else{
-            ScriptAction(targetObject, actionMode, userInList, wallMode);
-        }
-    }
 
-    private void ScriptAction(GameObject targetObject, int mode, bool targetState, bool wallMode = false)
+    private void ScriptAction(GameObject targetObject, int mode, bool targetState)
     {
         switch (mode)
         {
             case 0:
-                if (!wallMode) targetObject.SetActive(targetState);
-                else targetObject.SetActive(!targetState);
+                targetObject.SetActive(targetState);
                 break;
             case 1:
-                if (!wallMode) targetObject.GetComponent<Collider>().enabled = targetState;
-                else targetObject.GetComponent<Collider>().enabled = !targetState;
+                targetObject.GetComponent<Collider>().enabled = targetState;
                 break;
             case 2:
-                Collider[] t_colliders = targetObject.GetComponentsInChildren<Collider>();
-                if (t_colliders.Length!=0){
-                    if(!wallMode){
-                        foreach (Collider l_collider in t_colliders){
-                            l_collider.enabled = targetState;
-                        }
-                    }
-                    else {
-                        foreach (Collider l_collider in t_colliders){
-                            l_collider.enabled = !targetState;
-                        }
-                    }
-                }
-                else {
-                    Debug.LogError("Item Lock: No Collider Found");
-                }
+                ColliderRecursive(targetObject, targetState);
+                break;
+            case 3:
+                ColliderRecursive(targetObject, targetState);
+                MeshRendererRecursive(targetObject, targetState);
+                SkinnedMeshRendererRecursive(targetObject, targetState);
                 break;
             default:
                 Debug.LogError("Item Lock: Action Mode Index Out Of Bound.");
@@ -92,7 +76,51 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
         }
 
     }
-
+    private void SkinnedMeshRendererRecursive(GameObject targetObject, bool targetState)
+    {
+        SkinnedMeshRenderer[] t_meshRenderers = targetObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        if (t_meshRenderers.Length != 0)
+        {
+            foreach (SkinnedMeshRenderer l_meshRenderer in t_meshRenderers)
+            {
+                l_meshRenderer.enabled = targetState;
+            }
+        }
+        else
+        {
+            Debug.LogError("Item Lock: No Skinned Mesh Renderer Found");
+        }
+    }
+    private void MeshRendererRecursive(GameObject targetObject, bool targetState)
+    {
+        MeshRenderer[] t_meshRenderers = targetObject.GetComponentsInChildren<MeshRenderer>();
+        if (t_meshRenderers.Length != 0)
+        {
+            foreach (MeshRenderer l_meshRenderer in t_meshRenderers)
+            {
+                l_meshRenderer.enabled = targetState;
+            }
+        }
+        else
+        {
+            Debug.LogError("Item Lock: No Mesh Renderer Found");
+        }
+    }
+    private void ColliderRecursive(GameObject targetObject, bool targetState)
+    {
+        Collider[] t_colliders = targetObject.GetComponentsInChildren<Collider>();
+        if (t_colliders.Length != 0)
+        {
+            foreach (Collider l_collider in t_colliders)
+            {
+                l_collider.enabled = targetState;
+            }
+        }
+        else
+        {
+            Debug.LogError("Item Lock: No colliders found");
+        }
+    }
 
 #if UNITY_EDITOR && !COMPILER_UDONSHARP
     public void ImportUsernames(String[] importedUsernames)

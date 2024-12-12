@@ -12,14 +12,14 @@ public class ItemLockBasic : UdonSharpBehaviour
     [Header(" ")]
     [SerializeField] private GameObject targetObject;
     [SerializeField] private String[] usernames;
-    
-    [Header("Action Mode[0]アイテムが消える、[1]アイテムが触れなくなる")]
+
+    [Header("Mode[0]アイテムが消える、[1]アイテムが触れなくなる")]
     [Header("[1]予めコライダーを無効にするとよりセキュアになります")]
     [Header("[0]このスクリプトがオブジェクトにアタッチしたまま無効にしないでください")]
-    [Header("スイッチでオブジェクト(コライダー)を強制的に有効にするとロックが解除されます。")]
+    [Header("スイッチでオブジェクト(コライダー)を有効にするとロックが解除されます。")]
 
 
-    [Header("Action Mode 0 will make the item disappear, 1 will make the item not touchable")]
+    [Header("Mode 0 will make the item disappear, 1 will make the item not touchable")]
     [Header("[1]Deactivating colliders before uploading is recommanded for better security")]
     [Header("[0]Don't deactivate the game object if this script is attacted to it.")]
     [Header("The item will be unlocked if a switch enables the object(collider) directly")]
@@ -54,7 +54,10 @@ public class ItemLockBasic : UdonSharpBehaviour
                 return;
             }
         }
-        ScriptAction(actionMode, shouldOn);
+        // (shouldOn && !wallMode) || (!shouldOn && wallMode)
+        // in non wall mode, output == shouldOn
+        // in wall mode, output == !shouldOn
+        ScriptAction(actionMode, (shouldOn && !wallMode) || (!shouldOn && wallMode));
     }
 
     private bool UserCheck()
@@ -82,35 +85,107 @@ public class ItemLockBasic : UdonSharpBehaviour
         switch (mode)
         {
             case 0:
-                if (!wallMode) targetObject.SetActive(targetState);
-                else targetObject.SetActive(!targetState);
+                targetObject.SetActive(targetState);
                 break;
             case 1:
-                if (!wallMode) targetObject.GetComponent<Collider>().enabled = targetState;
-                else targetObject.GetComponent<Collider>().enabled = !targetState;
+                targetObject.GetComponent<Collider>().enabled = targetState;
                 break;
             case 2:
-                Collider[] t_colliders = targetObject.GetComponentsInChildren<Collider>();
-                if (t_colliders.Length!=0){
-                    if(!wallMode){
-                        foreach (Collider l_collider in t_colliders){
-                            l_collider.enabled = targetState;
-                        }
-                    }
-                    else {
-                        foreach (Collider l_collider in t_colliders){
-                            l_collider.enabled = !targetState;
-                        }
-                    }
-                }
-                else {
-                    Debug.LogError("Item Lock: No Collider Found");
-                }
+                ColliderRecursive(targetState);
                 break;
+            case 3:
+                ColliderRecursive(targetState);
+                MeshRendererRecursive(targetState);
+                SkinnedMeshRendererRecursive(targetState);
+                break;
+            // case 4:
+            //     ColliderModeRecursive(targetState);
+            //     CanvasRecursive(targetState);
+            //     RaycasterRecursive(targetState);
+            //     break;
             default:
                 Debug.LogError("Item Lock: Action Mode Index Out Of Bound.");
                 Debug.LogError("Item Lock: Action Modeの入力にエラーを検出しました。");
                 break;
+        }
+    }
+
+    // Case 4 for Canvas Mode
+    // Not Actually working
+
+    // private void RaycasterRecursive(bool targetState)
+    // {
+    //     GraphicRaycaster[] t_raycasters = targetObject.GetComponentsInChildren<GraphicRaycaster>();
+    //     if (t_raycasters.Length != 0)
+    //     {
+    //             foreach (GraphicRaycaster l_raycaster in t_raycasters)
+    //             {
+    //                 l_raycaster.enabled = targetState;
+    //             }
+    //     }
+    //     else
+    //     {
+    //         Debug.LogError("Item Lock: No Canvases Found");
+    //     }
+    // }
+    // private void CanvasRecursive(bool targetState)
+    // {
+    //     Canvas[] t_canvases = targetObject.GetComponentsInChildren<Canvas>();
+    //     if (t_canvases.Length != 0)
+    //     {
+    //             foreach (Canvas l_canvas in t_canvases)
+    //             {
+    //                 l_canvas.enabled = targetState;
+    //             }
+    //     }
+    //     else
+    //     {
+    //         Debug.LogError("Item Lock: No Canvases Found");
+    //     }
+    // }
+    private void SkinnedMeshRendererRecursive(bool targetState)
+    {
+        SkinnedMeshRenderer[] t_meshRenderers = targetObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        if (t_meshRenderers.Length != 0)
+        {
+            foreach (SkinnedMeshRenderer l_meshRenderer in t_meshRenderers)
+            {
+                l_meshRenderer.enabled = targetState;
+            }
+        }
+        else
+        {
+            Debug.LogError("Item Lock: No Skinned Mesh Renderer Found");
+        }
+    }
+    private void MeshRendererRecursive(bool targetState)
+    {
+        MeshRenderer[] t_meshRenderers = targetObject.GetComponentsInChildren<MeshRenderer>();
+        if (t_meshRenderers.Length != 0)
+        {
+            foreach (MeshRenderer l_meshRenderer in t_meshRenderers)
+            {
+                l_meshRenderer.enabled = targetState;
+            }
+        }
+        else
+        {
+            Debug.LogError("Item Lock: No Mesh Renderer Found");
+        }
+    }
+    private void ColliderRecursive(bool targetState)
+    {
+        Collider[] t_colliders = targetObject.GetComponentsInChildren<Collider>();
+        if (t_colliders.Length != 0)
+        {
+            foreach (Collider l_collider in t_colliders)
+            {
+                l_collider.enabled = targetState;
+            }
+        }
+        else
+        {
+            Debug.LogError("Item Lock: No Collider Found");
         }
     }
 #if UNITY_EDITOR && !COMPILER_UDONSHARP

@@ -36,13 +36,41 @@ Target: target object and child objects. (Child objects won't be directed disabl
 
 許可されていないプレイヤーにはオブジェクトのコライダーが無効化され、インタラクトできなくなります。それ以外のスクリプトは正常に同期されます。ただし、アイテムの当たり判定もなくなりますので、ドアなどに利用する場合では追加のコライダーが必要です。
 
-範囲: オブジェクト自身（子オブジェクトを含まず）（オブジェクトにコライダーがある必要があります。子オブジェクトにある場合では、子オブジェクトを入れてください。）
+範囲: オブジェクト自体（子オブジェクトを含まず）（オブジェクトにコライダーがある必要があります。子オブジェクトにある場合では、子オブジェクトを入れてください。）
 
 使用例: スタッフ用のアイテムで、同期するパラメータがある場合や、アイテム自身を隠す必要がない場合でアイテムをロックする。たとえば、プレイヤーを掴めるためのギミックをロックする。
 
 Only whitelisted users will be able to interact or grab the item. The Collision will also disappear. So if you're going to place this in a door, please add another collider to make sure other players can't go through it directly.
 
 Target: target object itself. Child objects won't be affected. The target object should have collider directly attached.
+
+#### Alpha - Mode 2 - コライダー一括モード/Collider Inclusive Mode
+
+> コライダーを利用するギミックに干渉する可能性があります。アンロックしない想定のモードです。
+
+許可されていないプレイヤーには、このオブジェクトおよび子オブジェクトのすべてのコライダーが無効になります。それ以外のスクリプトは正常に同期されます。
+
+範囲: オブジェクトおよびすべての子オブジェクト
+
+使用例: いくつかのオブジェクトのコライダーを一括管理する場合や、ギミックのコライダー構成が複雑な場合。
+
+> This could potentially break other gimmicks that rely on colliders. This isn't designed to be unlocked.
+
+Works the same as Mode 1 but all colliders on child objects will also going to be switched off.
+
+#### Alpha - Mode 3 - コライダー一括&消失モード（仮）/Collider & Invisible Inclusive Mode
+
+> コライダー/Rendererを利用するギミックに干渉する可能性があります。アンロックしない想定のモードです。
+
+許可されていないプレイヤーには、このオブジェクトおよび子オブジェクトのすべてのコライダー、MeshとSkinned Mesh Rendererが無効になります。そのため、アイテムが見られないままスクリプトの実行ができます。それ以外のスクリプトは正常に同期されます。
+
+範囲: オブジェクトおよびすべての子オブジェクト
+
+使用例: ギミックの本体を隠したままギミック機能を利用する場合。
+
+> This could potentially break other gimmicks that rely on colliders, mesh and skinned mesh renderers. This isn't designed to be unlocked.
+
+Mode 2 with disabling all mesh and skinned mesh renderers to make the target object invisible.
 
 #### インスタンスオーナー許可モード / Allow instance owner
 

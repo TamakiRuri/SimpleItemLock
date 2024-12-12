@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: ItemLockBasic
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 0488c8fa0cb0b2fa387fff0c5e72a857, type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: af97073b450a6d347b72205e60c85879,
+    type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 68938f1e54e14344090efce68b4be2aa, type: 3}
@@ -238,7 +239,7 @@ MonoBehaviour:
       Data: 16|UnityEngine.HeaderAttribute, UnityEngine.CoreModule
     - Name: header
       Entry: 1
-      Data: "Action Mode[0]\u30A2\u30A4\u30C6\u30E0\u304C\u6D88\u3048\u308B\u3001[1]\u30A2\u30A4\u30C6\u30E0\u304C\u89E6\u308C\u306A\u304F\u306A\u308B"
+      Data: "Mode[0]\u30A2\u30A4\u30C6\u30E0\u304C\u6D88\u3048\u308B\u3001[1]\u30A2\u30A4\u30C6\u30E0\u304C\u89E6\u308C\u306A\u304F\u306A\u308B"
     - Name: 
       Entry: 8
       Data: 
@@ -265,7 +266,7 @@ MonoBehaviour:
       Data: 19|UnityEngine.HeaderAttribute, UnityEngine.CoreModule
     - Name: header
       Entry: 1
-      Data: "\u30B9\u30A4\u30C3\u30C1\u3067\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8(\u30B3\u30E9\u30A4\u30C0\u30FC)\u3092\u5F37\u5236\u7684\u306B\u6709\u52B9\u306B\u3059\u308B\u3068\u30ED\u30C3\u30AF\u304C\u89E3\u9664\u3055\u308C\u307E\u3059\u3002"
+      Data: "\u30B9\u30A4\u30C3\u30C1\u3067\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8(\u30B3\u30E9\u30A4\u30C0\u30FC)\u3092\u6709\u52B9\u306B\u3059\u308B\u3068\u30ED\u30C3\u30AF\u304C\u89E3\u9664\u3055\u308C\u307E\u3059\u3002"
     - Name: 
       Entry: 8
       Data: 
@@ -274,8 +275,7 @@ MonoBehaviour:
       Data: 20|UnityEngine.HeaderAttribute, UnityEngine.CoreModule
     - Name: header
       Entry: 1
-      Data: Action Mode 0 will make the item disappear, 1 will make the item not
-        touchable
+      Data: Mode 0 will make the item disappear, 1 will make the item not touchable
     - Name: 
       Entry: 8
       Data: 
