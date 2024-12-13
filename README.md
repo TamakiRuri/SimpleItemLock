@@ -44,9 +44,9 @@ Only whitelisted users will be able to interact or grab the item. The Collision 
 
 Target: target object itself. Child objects won't be affected. The target object should have collider directly attached.
 
-#### Alpha - Mode 2 - コライダー一括モード/Collider Inclusive Mode
+#### Mode 2 - コライダー一括モード/Collider Inclusive Mode
 
-> コライダーを利用するギミックに干渉する可能性があります。アンロックしない想定のモードです。
+> コライダーコンポーネントのオンオフを制御するため、コライダーを利用するギミックに干渉する可能性があります。
 
 許可されていないプレイヤーには、このオブジェクトおよび子オブジェクトのすべてのコライダーが無効になります。それ以外のスクリプトは正常に同期されます。
 
@@ -54,21 +54,23 @@ Target: target object itself. Child objects won't be affected. The target object
 
 使用例: いくつかのオブジェクトのコライダーを一括管理する場合や、ギミックのコライダー構成が複雑な場合。
 
-> This could potentially break other gimmicks that rely on colliders. This isn't designed to be unlocked.
+> This could potentially break other gimmicks that rely on colliders.
 
-Works the same as Mode 1 but all colliders on child objects will also going to be switched off.
+Works the same as Mode 1 but all colliders on child objects will also be switched off.
 
-#### Alpha - Mode 3 - コライダー一括&消失モード（仮）/Collider & Invisible Inclusive Mode
+#### Mode 3 - コライダー一括&不可視モード/Collider & Invisible Inclusive Mode
 
-> コライダー/Rendererを利用するギミックに干渉する可能性があります。アンロックしない想定のモードです。
+> コライダー/Rendererコンポーネントのオンオフを制御するため、それらを利用するギミックに干渉する可能性があります。
 
 許可されていないプレイヤーには、このオブジェクトおよび子オブジェクトのすべてのコライダー、MeshとSkinned Mesh Rendererが無効になります。そのため、アイテムが見られないままスクリプトの実行ができます。それ以外のスクリプトは正常に同期されます。
+
+子オブジェクトにあるもののMesh RendererとSkinned Mesh Rendererがすべて無効になります。（ただし、パーティクル、UI、Spriteなどは正常に動作します）もし子オブジェクトに表示させたいものがありましたら、別のオブジェクトに移動してください。
 
 範囲: オブジェクトおよびすべての子オブジェクト
 
 使用例: ギミックの本体を隠したままギミック機能を利用する場合。
 
-> This could potentially break other gimmicks that rely on colliders, mesh and skinned mesh renderers. This isn't designed to be unlocked.
+> This could potentially break other gimmicks that rely on colliders, mesh and skinned mesh renderers.
 
 Mode 2 with disabling all mesh and skinned mesh renderers to make the target object invisible.
 
@@ -87,7 +89,6 @@ Allow the player who create this instance to use the item.
 許可されたプレイヤーだけがぬける壁（コライダー）などを作れます。
 
 Use wall mode to make whitelisted players to go through certain walls etc.
-
 
 ### 注意事項 / Limitations
 
@@ -130,6 +131,12 @@ Using multiple Item Locks in the same object isn't something we tested, nor what
 From Beta-b4, due to the Stack Overflow issue, the import tool is removed.
 
 From RC-b7, some variable names are changed. So in case of an update, please make sure you have a backup.
+
+### 問題と回避策 / Limitations and workaround
+
+1. インタラプトでテレポートするドアなどに対応するモードがない / No modes applicatable to doors that rely on interaction to teleport.
+
+A: ドア（またはコライダーが入っている部分）をMode 1に設定して、その後ろに別のオブジェクトでコライダーを設定してください。
 
 ### 導入
 

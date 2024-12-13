@@ -59,7 +59,14 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
                 targetObject.SetActive(targetState);
                 break;
             case 1:
-                targetObject.GetComponent<Collider>().enabled = targetState;
+                Collider targetCollider = targetObject.GetComponent<Collider>();
+                if (targetCollider == null)
+                {
+                    Debug.LogError("Item Lock: This object is in Action Mode 1 but the Collider can't be detected");
+                    Debug.LogError("Item Lock: このオブジェクトの動作モードがAction Mode 1ですがコライダーを取得できません");
+                }
+                else
+                    targetCollider.enabled = targetState;
                 break;
             case 2:
                 ColliderRecursive(targetObject, targetState);
@@ -135,26 +142,27 @@ public class ItemLockCenterAdvanced : UdonSharpBehaviour
         actionMode = l_modes;
         allowInstanceOwner = l_allowOwner;
         wallModes = l_wallModes;
+        Debug.Log("Item Lock Advanced: Data Imported");
     }
     public void ImportTargets(GameObject[] importedGameObjects)
     {
         targetObjects = importedGameObjects;
-        Debug.Log("Target GameObjects Imported");
+        Debug.Log("Item Lock Advanced: Target GameObjects Imported");
     }
     public void ImportModes(int[] importedModes)
     {
         actionMode = importedModes;
-        Debug.Log("Action Modes Imported");
+        Debug.Log("Item Lock Advanced: Action Modes Imported");
     }
     public void ImportAllowOwner(bool[] importedAllowOwner)
     {
         allowInstanceOwner = importedAllowOwner;
-        Debug.Log("Allow Instance Owner Settings Imported");
+        Debug.Log("Item Lock Advanced: Allow Instance Owner Settings Imported");
     }
     public void ImportWallModes(bool[] importedWallModes)
     {
         wallModes = importedWallModes;
-        Debug.Log("Wall Mode Settings Imported");
+        Debug.Log("Item Lock Advanced: Wall Mode Settings Imported");
     }
     // Export Functions (not in use)
     public String[] ExportUsernames()

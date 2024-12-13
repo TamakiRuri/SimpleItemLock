@@ -13,47 +13,25 @@ public class ItemLockBasic : UdonSharpBehaviour
     [SerializeField] private GameObject targetObject;
     [SerializeField] private String[] usernames;
 
-    [Header("Mode[0]アイテムが消える、[1]アイテムが触れなくなる")]
-    [Header("[1]予めコライダーを無効にするとよりセキュアになります")]
-    [Header("[0]このスクリプトがオブジェクトにアタッチしたまま無効にしないでください")]
-    [Header("スイッチでオブジェクト(コライダー)を有効にするとロックが解除されます。")]
+    [Header("Modeに関する詳しい説明は、Githubおよび商品ページにあります。")]
 
+    [Header("Specific Inforamtion is on the github and booth page")]
 
-    [Header("Mode 0 will make the item disappear, 1 will make the item not touchable")]
-    [Header("[1]Deactivating colliders before uploading is recommanded for better security")]
-    [Header("[0]Don't deactivate the game object if this script is attacted to it.")]
-    [Header("The item will be unlocked if a switch enables the object(collider) directly")]
+    [Header("Github: https://github.com/TamakiRuri/SimpleItemLock")]
+
+    [Header("Booth: https://saphir.booth.pm/items/6375850")]
 
     [Header(" ")]
-
 
     [SerializeField] private int actionMode = 0;
-
     [SerializeField] private bool allowInstanceOwner = false;
-
-    [Header("Wall Modeでは、動作が逆になります（壁などを一部の人だけがぬけるようにするなど）")]
-    [Header("In Wall Mode the function of the script become reversed (for creating walls that can only be go through by whitelisted users).")]
-    [Header(" ")]
-
     [SerializeField] private bool wallMode = false;
-
     private bool shouldOn = false;
-    private Collider targetCollider;
 
     void Start()
     {
         if (targetObject == null) targetObject = gameObject;
         shouldOn = UserCheck();
-        if (actionMode == 1)
-        {
-            targetCollider = targetObject.GetComponent<Collider>();
-            if (targetCollider == null)
-            {
-                Debug.LogError("Item Lock: This object is in Action Mode 1 but the Collider can't be detected");
-                Debug.LogError("Item Lock: このオブジェクトの動作モードがAction Mode 1ですがコライダーを取得できません");
-                return;
-            }
-        }
         // (shouldOn && !wallMode) || (!shouldOn && wallMode)
         // in non wall mode, output == shouldOn
         // in wall mode, output == !shouldOn
@@ -88,7 +66,14 @@ public class ItemLockBasic : UdonSharpBehaviour
                 targetObject.SetActive(targetState);
                 break;
             case 1:
-                targetObject.GetComponent<Collider>().enabled = targetState;
+                Collider targetCollider = targetObject.GetComponent<Collider>();
+                if (targetCollider == null)
+                {
+                    Debug.LogError("Item Lock: This object is in Action Mode 1 but the Collider can't be detected");
+                    Debug.LogError("Item Lock: このオブジェクトの動作モードがAction Mode 1ですがコライダーを取得できません");
+                }
+                else
+                    targetCollider.enabled = targetState;
                 break;
             case 2:
                 ColliderRecursive(targetState);
@@ -192,7 +177,7 @@ public class ItemLockBasic : UdonSharpBehaviour
     public void ImportUsernames(String[] importedUsernames)
     {
         usernames = importedUsernames;
-        Debug.Log("Username Imported");
+        Debug.Log("Item Lock Basic: Username Imported");
     }
 
 

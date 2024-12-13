@@ -11,25 +11,18 @@ public class ItemLockCenter : UdonSharpBehaviour
     [SerializeField] private GameObject[] targetObjects;
 
 
-    [Header("Mode[0]アイテムが消える、[1]アイテムが触れなくなる")]
-    [Header("予め[0]オブジェクト[1]コライダーを無効にするとよりセキュアになります")]
-    [Header("全ての操作がJoin時に終わるため")]
-    [Header("スイッチでオブジェクト(コライダー)を有効にするとロックが解除されます。")]
+    [Header("Modeに関する詳しい説明は、Githubおよび商品ページにあります。")]
 
+    [Header("Specific Inforamtion is on the github and booth page")]
 
-    [Header("Mode 0 will make the item disappear, 1 will make the item not touchable")]
-    [Header("Deactivating[0]objects[1]colliders before uploading is recommanded for better security")]
-    [Header("However, the item will be unlocked if a switch enables the object(collider) directly")]
+    [Header("Github: https://github.com/TamakiRuri/SimpleItemLock")]
+
+    [Header("Booth: https://saphir.booth.pm/items/6375850")]
 
     [Header(" ")]
-
 
     [SerializeField] private int actionMode = 0;
     [SerializeField] private bool allowInstanceOwner = false;
-
-    [Header("Wall Modeでは、動作が逆になります（壁などを一部の人だけがぬけるようにするなど）")]
-    [Header("In Wall Mode the function of the script become reversed (for creating walls that can only be go through by whitelisted users).")]
-    [Header(" ")]
     [SerializeField] private bool wallMode = false;
     private bool shouldOn = false;
     void Start()
@@ -38,9 +31,9 @@ public class ItemLockCenter : UdonSharpBehaviour
         // (shouldOn && !wallMode) || (!shouldOn && wallMode)
         // in non wall mode, output == shouldOn
         // in wall mode, output == !shouldOn
-        foreach (GameObject _gameObject in targetObjects)
+        foreach (GameObject targetObject in targetObjects)
         {
-            ScriptAction(_gameObject, actionMode, (shouldOn && !wallMode) || (!shouldOn && wallMode));
+            ScriptAction(targetObject, actionMode, (shouldOn && !wallMode) || (!shouldOn && wallMode));
         }
 
     }
@@ -63,23 +56,30 @@ public class ItemLockCenter : UdonSharpBehaviour
         }
         return false;
     }
-    private void ScriptAction(GameObject _gameObject, int mode, bool targetState)
+    private void ScriptAction(GameObject targetObject, int mode, bool targetState)
     {
         switch (mode)
         {
             case 0:
-                _gameObject.SetActive(targetState);
+                targetObject.SetActive(targetState);
                 break;
             case 1:
-                _gameObject.GetComponent<Collider>().enabled = targetState;
+                Collider targetCollider = targetObject.GetComponent<Collider>();
+                if (targetCollider == null)
+                {
+                    Debug.LogError("Item Lock: This object is in Action Mode 1 but the Collider can't be detected");
+                    Debug.LogError("Item Lock: このオブジェクトの動作モードがAction Mode 1ですがコライダーを取得できません");
+                }
+                else
+                    targetCollider.enabled = targetState;
                 break;
             case 2:
-                ColliderRecursive(_gameObject, targetState);
+                ColliderRecursive(targetObject, targetState);
                 break;
             case 3:
-                ColliderRecursive(_gameObject, targetState);
-                MeshRendererRecursive(_gameObject, targetState);
-                SkinnedMeshRendererRecursive(_gameObject, targetState);
+                ColliderRecursive(targetObject, targetState);
+                MeshRendererRecursive(targetObject, targetState);
+                SkinnedMeshRendererRecursive(targetObject, targetState);
                 break;
             default:
                 Debug.LogError("Item Lock: Action Mode Index Out Of Bound.");
@@ -137,7 +137,7 @@ public class ItemLockCenter : UdonSharpBehaviour
     public void ImportUsernames(String[] importedUsernames)
     {
         usernames = importedUsernames;
-        Debug.Log("Username Imported");
+        Debug.Log("Item Lock Center: Username Imported");
     }
     public String[] ExportUsernames()
     {
