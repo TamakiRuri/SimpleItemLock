@@ -170,11 +170,17 @@ Advancedバージョンでは、ユーザー名コピー機能があります。
 
 In the Advanced prefab, you can put any other objects with ItemLockBasic or Item Lock Prefabs (Including non-advanced ones) and click Copy Usernames to copy the stored usernames to the target object.
 
-#### 一つオブジェクトのみ利用する (Basic) / Use single object script (Basic)
+#### 一つオブジェクトのみ利用する　/ Use single object script
 
-対象オブジェクトにItemLockBasicというスクリプトをD&Dします。
+> ItemLockBasicは今後、更新されなくなります。
+>ItemLockCenterが同じ機能を対応したため、Centerをご利用ください。
 
-Drag and drop ItemLockBasic script to target object.
+>ItemLockBasic is now deprecated.
+>Use ItemLockCenter instead, as it now supports the same function.
+
+対象オブジェクトにItemLockCenterというスクリプトをアタッチします。
+
+Attach ItemLockCenter script to target object.
 
 右下の+マークを押してユーザー名を入力してください。Usernamesにあるすべてのユーザーがこのオブジェクトを操作できます。
 

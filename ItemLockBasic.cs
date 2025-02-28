@@ -5,8 +5,15 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
+
 public class ItemLockBasic : UdonSharpBehaviour
 {
+
+    [Header("メンテナンスの都合上、このスクリプトは更新されなくなります")]
+    [Header("Item Lock Centerのスクリプトをご利用ください。")]
+    [Header("This script is DEPRECATED and will not receive updates.")]
+    [Header("Item Lock Center Script now have the same auto setup function.")]
+    [Header(" ")]
     [Header("何も入れない場合、現在のオブジェクトが設定されます。")]
     [Header("If no object is attached, current object will be automatically set up")]
     [Header(" ")]

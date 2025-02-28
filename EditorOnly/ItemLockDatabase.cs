@@ -7,7 +7,7 @@ using UnityEngine;
 public class ItemLockDatabase : MonoBehaviour
 {
     [SerializeField] private String[] usernames;
-    [Header("必ずプレハブをUnpackしてからお使いください")]
+    [Header("必ずプレハブをUnpackしてからご利用ください")]
 
     [Header("Please UNPACK this prefab before using.")]
 
