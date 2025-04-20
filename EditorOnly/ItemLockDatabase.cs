@@ -29,7 +29,22 @@ public class ItemLockDatabase : MonoBehaviour
 
     [Header(" ")]
 
+    [Header("Master Passwordスクリプト連携用で、ワールド内では通常のパスワードとしてご利用できません")]
+    [Header("For script interactions. Does NOT work for world users.")]
+
+    [SerializeField] private String masterPassword="StudioSaphir";
+
     [SerializeField] private ItemLockList[] targetObjects;
+
+    [Header("パスワード: 数字のみ")]
+    [Header("Password: Numbers only")]
+    [SerializeField] private String password;
+
+    [Header("タイムアウトが発生するまでパスワードを連続に間違える回数。0では無効になります。")]
+    [Header("タイムアウトになった場合、Rejoinしなければパスワード入力が処理されなくなります。")]
+    [Header("Amount of wrong passwords before the player to get timed out. 0 for disable.")]
+    [Header("If a player is timed out, later password inputs are not going to be processed unless the player rejoins.")]
+    [SerializeField] private int timeOutCount = 5;
 
     [Header("データ入力が終わりましたら必ずGenerate Dataを押してください。")]
     [Header("Press \"Generate Data\" after imputing your data")]
@@ -89,6 +104,8 @@ public class ItemLockDatabase : MonoBehaviour
         ItemLockCenterAdvanced centerClass = controlCenter.GetComponent<ItemLockCenterAdvanced>();
         centerClass.ImportUsernames(usernames);
         centerClass.ImportLockData(ExportObjectData(),ExportModeData(),ExportAllowOwnerData(),ExportWallData());
+        centerClass.ImportPasswordData(password, timeOutCount);
+        centerClass.ImportMasterPassword(masterPassword);
     }
 }
 

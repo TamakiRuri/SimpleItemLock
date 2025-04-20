@@ -4,7 +4,7 @@ using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
-
+[UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
 public class ItemLockCenterAdvanced : LibItemLock
 {
     [Header("このScriptのデータは自動生成されます")]
@@ -13,14 +13,21 @@ public class ItemLockCenterAdvanced : LibItemLock
     [Header("The data in this script is auto generated")]
     [Header("Adding or moving objects could potentially break the program")]
     [Header(" ")]
+    [SerializeField] private String masterPassword;
     [SerializeField] protected String[] usernames;
     [SerializeField] protected GameObject[] targetObjects;
     [SerializeField] protected int[] actionMode;
     [SerializeField] protected bool[] allowInstanceOwner;
     [SerializeField] protected bool[] wallModes;
+    [SerializeField] private String password;
+    [SerializeField] private int timeOutCount = 5;
+    private int wrongInputs = 0;
+    // For safety, if the master password is wrong for a single time the script will be locked
+    private bool lockFeature = false;
 
     // allow InstanceOwner is different for each object this only applies to list members
     protected bool userInList = false;
+    [UdonSynced]private String createdPassword;
 
     protected void Start()
     {
@@ -38,17 +45,50 @@ public class ItemLockCenterAdvanced : LibItemLock
         }
     }
     // UserCheck. Different funcion name to prevent misunderstandings. THIS DOES NOT CHECK INSTANCE OWNER.
-    protected bool UserListCheck()
+    private bool UserListCheck()
     {
         String localPlayer = Networking.LocalPlayer.displayName;
-        for (int i = 0; i < usernames.Length; i++)
-        {
-            if (localPlayer == usernames[i])
-            {
-                return true;
+        if (Array.IndexOf(usernames, localPlayer)!= -1) return true;
+        else
+        return false;
+    }
+        // -1: Not Enabled 0: Unlock, 1: Wrong Password, 2: Already Unlocked, 3: Input Blocked
+    public int PasswordCheck(String l_password){
+        if (password == ""&& createdPassword == "") return -1;
+        if (userInList) return 2;
+        if (wrongInputs < timeOutCount || timeOutCount == 0){
+            if (l_password == password || (createdPassword != "" && l_password == createdPassword)){
+                userInList = true;
+                for(int i = 0; i < targetObjects.Length; i++)
+                {
+                    ScriptAction(targetObjects[i], actionMode[i], !wallModes[i]);
+                }
+                Debug.Log("Simple Item Lock Advanced: Unlocked.");
+                return 0;
+            }
+            else {
+                wrongInputs++;
+                return 1;
             }
         }
-        return false;
+        else return 3;
+    }
+    public void CreatePasswordMP(String l_password, String l_masterPassword){
+        if (lockFeature == true) return;
+        if (l_masterPassword != masterPassword){
+            lockFeature = true;
+            return;
+        }
+        createdPassword = l_password;
+        RequestSerialization();
+    }
+    public void ImportUsernamesMP(String[] l_usernames, String l_masterPassword){
+        if (lockFeature == true) return;
+        if (l_masterPassword != masterPassword){
+            lockFeature = true;
+            return;
+        }
+        usernames = MergetoArray(usernames, l_usernames);
     }
 
 #if UNITY_EDITOR && !COMPILER_UDONSHARP
@@ -85,6 +125,13 @@ public class ItemLockCenterAdvanced : LibItemLock
     {
         wallModes = importedWallModes;
         Debug.Log("Item Lock Advanced: Wall Mode Settings Imported");
+    }
+    public void ImportPasswordData(String l_password, int l_timeOutCount){
+        password = l_password;
+        timeOutCount = l_timeOutCount;
+    }
+    public void ImportMasterPassword(String l_masterPassword){
+        masterPassword = l_masterPassword;
     }
     // Export Functions (not in use)
     public String[] ExportUsernames()

@@ -2,11 +2,11 @@
 
 ![Sample](./Sample.png)
 
-Simple Item Lock はVRChatワールドで、アイテムを特定の人にしか触れない、または見えないようにするギミックです。
+Simple Item Lock はVRChatワールドで、アイテムを特定の人にしか触れない、または見えないようにするギミックです。パスワードのサポートもあります。(V2.1)
 
 オブジェクト本体、またはコライダーに動作するため、ボタンやテレポーターなどにも動作します。
 
-Simple Item Lock is a simple way to prevent your item being used or seen by using a white list.
+Simple Item Lock is a simple way to prevent your item being used or seen by using a white list. It also has password support.
 
 It works with game objects and colliders, so items like buttons and teleporters will also work.
 
@@ -14,9 +14,9 @@ It works with game objects and colliders, so items like buttons and teleporters 
 
 2つ以上共存可能 / Support for multiple locks to be used at same time.
 
-Join時に実行 / Run at join.
+コライダー、オブジェクトなどのモード / Collider / Object Mode
 
-パフォーマンス影響小 / Low performance cost.
+パスワードのサポート / Support Passwords
 
 ### 説明 / Information
 
@@ -74,7 +74,7 @@ Works the same as Mode 1 but all colliders on child objects will also be switche
 
 Mode 2 with disabling all mesh and skinned mesh renderers to make the target object invisible.
 
-#### インスタンスオーナー許可モード / Allow instance owner
+#### インスタンスオーナー許可 / Allow instance owner
 
 インスタンスを立てたプレイヤーを許可します。
 
@@ -96,31 +96,31 @@ Use wall mode to make whitelisted players to go through certain walls etc.
 
 **Advanced Prefab はUnpackしてからご利用ください。Prefabのままでは正常に動作しません。**
 
+マスターパスワードは有料バージョン用のもので、OSSバージョンでは対応するスクリプトがありません。
+
 これは、Prefabにあるユーザーに変更されていないフィールドに、スクリプトでデータを入力しても保存されないためです。
 
-ジョイン時に実行されるため、ターゲットオブジェクトをスイッチでオンにするロックが解除されます。
-
-そのため、ワールドでユーザーを追加したり、削除したりすることができません。
+ターゲットオブジェクトをスイッチでオンにするロックが解除されます。
 
 ただし、グローバルボタンをロックして、許可されたユーザーが適切な場合で利用することで、自由にオンオフできます。
 
 この場合では、そのスイッチオフにすればオブジェクトがまたロックされます。
 
-同じオブジェクトを複数のItem Lockに登録した場合はサポート対象外です。
+同じオブジェクトを複数のItem Lockに登録した場合は干渉することがあります。
 
 Beta-b4 から、Stack Overflowの影響で、導入ツールを削除しました。
 
 RC-b7 から、変数名の変更がありますので、更新する時に必ずバックアップを取ってからImportしてください。
 
-This is designed to prevent unwanted pranks. This may not work for all types of attacks.
+This is designed to prevent unwanted pranks, and thus may not work for all types of attacks.
 
 **Please unpack the advanced prefab before using it. Generate Data function won't work if it's not unpacked.**
 
+Master Password is only for paid version, and it doesn't have any supported function in the OSS version.
+
 This is because, in Unity, adding something to a unchanged prefab with a script won't be saved.
 
-This script will be run at join, thus enabling the targets object with switches will unlock the object.
-
-Therefore, adding or deleting whitelisted users in VRChat is not supported.
+Enabling the target objects with switches will unlock the objects.
 
 However, by locking a global switch and letting whitelisted users using the switch when appropriate, you can enable or disable objects according to your needs.
 
@@ -158,9 +158,13 @@ There are two types of prefabs. Advanced prefab allow editing modes and the opti
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
-アイテムリストを作ります。Target Object は対象アイテムです。Modeなどの説明は上にある説明にあります。
+アイテムリストを作ります。Target Object は対象アイテムです。Modeなどの説明は上にあります。
 
 Create the item list. Information about modes and other settings are above.
+
+パスワードを利用するには、別途Password Panelのオブジェクトを設置し、パネルのインスペクターにロックを設定する必要があります。
+
+To use Password, you need place the password panel object, and add the lock to the password panel on the inspector.
 
 **Advanced PrefabではGenerate Dataを押す必要があります。この作業は毎回編集する時に必要になります。**
 
@@ -173,10 +177,10 @@ In the Advanced prefab, you can put any other objects with ItemLockBasic or Item
 #### 一つオブジェクトのみ利用する　/ Use single object script
 
 > ItemLockBasicは今後、更新されなくなります。
->ItemLockCenterが同じ機能を対応したため、Centerをご利用ください。
+> ItemLockCenterが同じ機能を対応したため、Centerをご利用ください。
 
->ItemLockBasic is now deprecated.
->Use ItemLockCenter instead, as it now supports the same function.
+> ItemLockBasic is now deprecated.
+> Use ItemLockCenter instead, as it now supports the same function.
 
 対象オブジェクトにItemLockCenterというスクリプトをアタッチします。
 
@@ -186,6 +190,10 @@ Attach ItemLockCenter script to target object.
 
 Using the + mark at bottom right corner and input usernames for whitelisted users.
 
-アイテムリストを作ります。Target Object は対象アイテムです。Modeなどの説明は上にある説明にあります。
+アイテムリストを作ります。Target Object は対象アイテムです。Modeなどの説明は上にあります。
 
 Create the item list. Information about modes and other settings are above.
+
+パスワードを利用するには、別途Password Panelのオブジェクトを設置し、パネルのインスペクターにロックを設定する必要があります。
+
+To use Password, you need place the password panel object, and add the lock to the password panel on the inspector.

@@ -39,7 +39,7 @@ Mode 3 - コライダー一括&不可視モード/Collider & Invisible Inclusive
 This could potentially break other gimmicks that rely on colliders, mesh and skinned mesh renderers.
 Mode 2 with disabling all mesh and skinned mesh renderers to make the target object invisible.
 
-インスタンスオーナー許可モード / Allow instance owner
+インスタンスオーナー許可 / Allow instance owner
 
 インスタンスを立てたプレイヤーを許可します。
 使用例: 公開ワールドでの利用や、ユーザー名追加し忘れがある場合での救済措置など。
