@@ -25,12 +25,19 @@ public class ItemLockCenter : LibItemLock
 
     [Header(" ")]
 
-    [Header("Master Passwordスクリプト連携用で、ワールド内では通常のパスワードとしてご利用できません")]
+    [Header("Master Passwordはスクリプト連携用で、ワールド内では通常のパスワードとしてご利用できません")]
     [Header("For script interactions. Does NOT work for world users.")]
 
     [SerializeField] private String masterPassword="StudioSaphir";
     [SerializeField] protected int actionMode = 0;
     [SerializeField] protected bool allowInstanceOwner = false;
+    
+    [Header("インスタンスの一人目のマスターを許可する")]
+    [Header("Groupインスタンスでインスタンスオーナー検出できないための回避策です")]
+    [Header("Allow the first Instance Master")]
+    [Header("Useful for group instances where instace owner can't be detected")]
+
+    [SerializeField] protected bool fallbackToMaster = true;
     [SerializeField] protected bool wallMode = false;
     protected bool shouldOn = false;
     [Header("パスワード: 数字のみ")]
@@ -45,11 +52,17 @@ public class ItemLockCenter : LibItemLock
     // For safety, if the master password is wrong for a single time the script will be locked
     private bool lockFeature = false;
     [UdonSynced]private String createdPassword;
+    [UdonSynced]private String savedMaster;
     protected void Start()
     {
         if (targetObjects.Length == 0){
             targetObjects = new GameObject[1];
             targetObjects[0] = gameObject;
+        }
+        if (Networking.LocalPlayer.isMaster && fallbackToMaster && allowInstanceOwner)
+        {
+            savedMaster = Networking.LocalPlayer.displayName;
+            RequestSerialization();
         }
         shouldOn = UserCheck();
         // (shouldOn && !wallMode) || (!shouldOn && wallMode)
@@ -65,6 +78,10 @@ public class ItemLockCenter : LibItemLock
     {
         String localPlayer = Networking.LocalPlayer.displayName;
         if (Networking.LocalPlayer.isInstanceOwner && allowInstanceOwner)
+        {
+            return true;
+        }
+        else if (allowInstanceOwner && localPlayer == savedMaster && fallbackToMaster)
         {
             return true;
         }
@@ -85,7 +102,7 @@ public class ItemLockCenter : LibItemLock
                 {
                     ScriptAction(targetObject, actionMode, !wallMode);
                 }
-                Debug.Log("Simple Item Lock Advanced: Unlocked.");
+                Debug.Log("Simple Item Lock: Unlocked. \n ロック解除しました。");
                 return 0;
             }
             else{
@@ -102,6 +119,9 @@ public class ItemLockCenter : LibItemLock
             return;
         }
         createdPassword = l_password;
+        if (!Networking.IsOwner(Networking.LocalPlayer, gameObject)){
+			Networking.SetOwner(Networking.LocalPlayer, gameObject);
+		}
         RequestSerialization();
     }
     public void ImportUsernamesMP(String[] l_usernames, String l_password){

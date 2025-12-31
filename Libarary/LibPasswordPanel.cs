@@ -21,7 +21,9 @@ public class LibPasswordPanel : UdonSharpBehaviour
     [Header("Mode: 0 display the first output. 1 prioritize success message. 2 prioritize fail message.")]
     [SerializeField] protected int mode = 0;
     [Header("ItemLockをアタッチしてください")]
-    [Header("Please attch the ItemLocks")]
+    [Header("Password Creatorモードでは、Password Creatorスクリプトが入っているオブジェクトをアタッチしてください。")]
+    [Header("Please attch the ItemLocks. ")]
+    [Header("Attach the object that password creator is in in Password Creator mode")]
     [SerializeField] protected GameObject[] lockObjects;
 
     [SerializeField] protected TextMeshProUGUI passwordDisplay;

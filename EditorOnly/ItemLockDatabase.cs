@@ -2,16 +2,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ItemLockDatabase : MonoBehaviour
 {
     [SerializeField] private String[] usernames;
-    [Header("必ずプレハブをUnpackしてからご利用ください")]
-
-    [Header("Please UNPACK this prefab before using.")]
-
-    [Header(" ")]
 
     [Header("Modeに関する詳しい説明は、Githubおよび商品ページにあります。")]
 
@@ -35,6 +31,13 @@ public class ItemLockDatabase : MonoBehaviour
     [SerializeField] private String masterPassword="StudioSaphir";
 
     [SerializeField] private ItemLockList[] targetObjects;
+    
+    [Header("インスタンスの一人目のマスターを許可する")]
+    [Header("Groupインスタンスでインスタンスオーナー検出できないための回避策です")]
+    [Header("Allow the first Instance Master")]
+    [Header("Useful for group instances where instace owner can't be detected")]
+
+    [SerializeField] private bool fallbackToMaster;
 
     [Header("パスワード: 数字のみ")]
     [Header("Password: Numbers only")]
@@ -49,10 +52,15 @@ public class ItemLockDatabase : MonoBehaviour
     [Header("データ入力が終わりましたら必ずGenerate Dataを押してください。")]
     [Header("Press \"Generate Data\" after imputing your data")]
     [Header(" ")]
+
+    [Header("Generate Dataを押すとこのプレハブはUnpackされます")]
+    [Header("This prefab will be unpacked when Generate Data is pressed")]
+    [Header(" ")]
     [SerializeField] private GameObject controlCenter;
     
 
-    public void ImportUsernames(String[] l_usernames){
+    public void ImportUsernames(String[] l_usernames)
+    {
         usernames = l_usernames;
     }
     public void ImportObjectData(GameObject[] l_objects, int[] l_modes, bool[] l_allowOwner, bool[] l_wallModes){
@@ -101,9 +109,13 @@ public class ItemLockDatabase : MonoBehaviour
 
     public void GenerateDatatoCenter(){
         if (controlCenter == null) controlCenter = gameObject;
+        if (PrefabUtility.IsPartOfAnyPrefab(controlCenter.gameObject))
+        {
+            PrefabUtility.UnpackPrefabInstance(controlCenter.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
+        }
         ItemLockCenterAdvanced centerClass = controlCenter.GetComponent<ItemLockCenterAdvanced>();
         centerClass.ImportUsernames(usernames);
-        centerClass.ImportLockData(ExportObjectData(),ExportModeData(),ExportAllowOwnerData(),ExportWallData());
+        centerClass.ImportLockData(ExportObjectData(),ExportModeData(),ExportAllowOwnerData(),ExportWallData(), fallbackToMaster);
         centerClass.ImportPasswordData(password, timeOutCount);
         centerClass.ImportMasterPassword(masterPassword);
     }

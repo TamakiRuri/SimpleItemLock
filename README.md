@@ -76,11 +76,19 @@ Mode 2 with disabling all mesh and skinned mesh renderers to make the target obj
 
 #### インスタンスオーナー許可 / Allow instance owner
 
-インスタンスを立てたプレイヤーを許可します。
+インスタンスを立てたプレイヤー(グループインスタンスを除く)を許可します。
 
 使用例: 公開ワールドでの利用や、ユーザー名追加し忘れがある場合での救済措置など。
 
-Allow the player who create this instance to use the item.
+V2.2: グループインスタンスでは、Fallback To Masterをオンにすることで、一人目のインスタンスマスターを許可することができます。
+
+グループインスタンスではインスタンスオーナーを検出できないため、フォールバックとして利用できます。
+
+Allow the player who create this instance (in non-group instances) to use the item.
+
+V2.2: Turning on Fallback to Master can allow first master of this instaces to act as instace owner.
+
+This is intended to be used in group instances, where instance owners can't be detected.
 
 #### 壁モード / Wall Mode
 
@@ -150,9 +158,9 @@ A: ドア（またはコライダーが入っている部分）をMode 1に設�
 
 #### Prefabを利用する / Use the prefab
 
-2種類のPrefabがあります。 Advancedでは、アイテム一つ一つでインスタンスオーナーの許可を編集したり、モードを選択したりすることができますが、毎回Generate Dataを押す必要があります。Advanced でないItem Lockでは、すべてのオブジェクトが同じ設定になります。設定の手順はほぼ同じですが、Advanced PrefabはUnpackする必要があります。
+2種類のPrefabがあります。 Advancedでは、アイテム一つ一つでインスタンスオーナーの許可を編集したり、モードを選択したりすることができますが、毎回Generate Dataを押す必要があります。Advanced でないItem Lockでは、すべてのオブジェクトが同じ設定になります。
 
-There are two types of prefabs. Advanced prefab allow editing modes and the options for allowing instance owner for each object, with a drawback of requiring clicking the Generate Data button every time the object is edited. The prefab without Advanced will let all target objects have the same settings. However, advanced prefab should be unpacked if you want to use it.
+There are two types of prefabs. Advanced prefab allow editing modes and the options for allowing instance owner for each object, with a drawback of requiring clicking the Generate Data button every time the object is edited. The prefab without Advanced will let all target objects have the same settings. 
 
 右下の+マークを押しユーザー名を入力します。Usernamesにあるすべてのユーザーがオブジェクトを操作できます。
 
@@ -166,11 +174,15 @@ Create the item list. Information about modes and other settings are above.
 
 To use Password, you need place the password panel object, and add the lock to the password panel on the inspector.
 
-**Advanced PrefabではGenerate Dataを押す必要があります。この作業は毎回編集する時に必要になります。**
+**Advanced Prefabでは毎回編集する時にGenerate Dataを押す必要があります。**
 
-**Click the Generate Data Button for Advanced Prefab. This should be done for every time the list is edited.**
+**Click the Generate Data Button for Advanced Prefab after editing.**
 
-Advancedバージョンでは、ユーザー名コピー機能があります。他のPrefab（非Advanced含む）またはItemLockBasicがついているオブジェクトを下のTarget LockにいれてCopy Usernamesを押すとユーザー名が入れたオブジェクトにコピーされます。
+Advanced Prefabでは、Generate Dataを押すとプレハブがUnpackされます。これはプレハブではそのまま編集すると保存されないためです。
+
+After data generation on Advanced Prefab, the prefab will be unpacked to prevent data not being saved correctly.
+
+Advanced Prefabでは、ユーザー名コピー機能があります。他のPrefab（非Advanced含む）またはItemLockBasicがついているオブジェクトを下のTarget LockにいれてCopy Usernamesを押すとユーザー名が入れたオブジェクトにコピーされます。
 
 In the Advanced prefab, you can put any other objects with ItemLockBasic or Item Lock Prefabs (Including non-advanced ones) and click Copy Usernames to copy the stored usernames to the target object.
 

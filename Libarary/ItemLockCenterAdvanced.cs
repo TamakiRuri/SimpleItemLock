@@ -18,6 +18,7 @@ public class ItemLockCenterAdvanced : LibItemLock
     [SerializeField] protected GameObject[] targetObjects;
     [SerializeField] protected int[] actionMode;
     [SerializeField] protected bool[] allowInstanceOwner;
+    [SerializeField] protected bool fallbackToMaster;
     [SerializeField] protected bool[] wallModes;
     [SerializeField] private String password;
     [SerializeField] private int timeOutCount = 5;
@@ -28,15 +29,21 @@ public class ItemLockCenterAdvanced : LibItemLock
     // allow InstanceOwner is different for each object this only applies to list members
     protected bool userInList = false;
     [UdonSynced]private String createdPassword;
+    [UdonSynced]private String savedMaster;
 
     protected void Start()
     {
+        if (Networking.LocalPlayer.isMaster && fallbackToMaster)
+        {
+            savedMaster = Networking.LocalPlayer.displayName;
+            RequestSerialization();
+        }
         userInList = UserListCheck();
         if (wallModes.Length == 0) wallModes = new bool[targetObjects.Length];
         for (int i = 0; i < targetObjects.Length; i++)
         {
             // This shouldOn is the same as Lock Center and basic
-            bool shouldOn = (Networking.LocalPlayer.isInstanceOwner && allowInstanceOwner[i]) || userInList;
+            bool shouldOn = ((Networking.LocalPlayer.isInstanceOwner || (fallbackToMaster && savedMaster == Networking.LocalPlayer.displayName)) && allowInstanceOwner[i]) || userInList;
             // (shouldOn && !wallModes[i]) || (!shouldOn && wallModes[i])
             // in non wall mode, output == shouldOn
             // in wall mode, output == !shouldOn
@@ -54,7 +61,7 @@ public class ItemLockCenterAdvanced : LibItemLock
     }
         // -1: Not Enabled 0: Unlock, 1: Wrong Password, 2: Already Unlocked, 3: Input Blocked
     public int PasswordCheck(String l_password){
-        if (password == ""&& createdPassword == "") return -1;
+        if (password == ""&& createdPassword == "") {return -1;}
         if (userInList) return 2;
         if (wrongInputs < timeOutCount || timeOutCount == 0){
             if (l_password == password || (createdPassword != "" && l_password == createdPassword)){
@@ -63,7 +70,7 @@ public class ItemLockCenterAdvanced : LibItemLock
                 {
                     ScriptAction(targetObjects[i], actionMode[i], !wallModes[i]);
                 }
-                Debug.Log("Simple Item Lock Advanced: Unlocked.");
+                Debug.Log("Simple Item Lock Advanced: Unlocked.\n ロック解除しました。");
                 return 0;
             }
             else {
@@ -80,6 +87,9 @@ public class ItemLockCenterAdvanced : LibItemLock
             return;
         }
         createdPassword = l_password;
+        if (!Networking.IsOwner(Networking.LocalPlayer, gameObject)){
+			Networking.SetOwner(Networking.LocalPlayer, gameObject);
+		}
         RequestSerialization();
     }
     public void ImportUsernamesMP(String[] l_usernames, String l_masterPassword){
@@ -98,11 +108,12 @@ public class ItemLockCenterAdvanced : LibItemLock
         Debug.Log("Username Imported");
     }
 
-    public void ImportLockData(GameObject[] l_gameObject, int[] l_modes, bool[] l_allowOwner, bool[] l_wallModes)
+    public void ImportLockData(GameObject[] l_gameObject, int[] l_modes, bool[] l_allowOwner, bool[] l_wallModes, bool l_fallback)
     {
         targetObjects = l_gameObject;
         actionMode = l_modes;
         allowInstanceOwner = l_allowOwner;
+        fallbackToMaster = l_fallback;
         wallModes = l_wallModes;
         Debug.Log("Item Lock Advanced: Data Imported");
     }
@@ -120,6 +131,11 @@ public class ItemLockCenterAdvanced : LibItemLock
     {
         allowInstanceOwner = importedAllowOwner;
         Debug.Log("Item Lock Advanced: Allow Instance Owner Settings Imported");
+    }
+    public void ImportFallbackToMaster(bool importedFallbackToMaster)
+    {
+        fallbackToMaster = importedFallbackToMaster;
+        Debug.Log("Item Lock Advanced: Fall back to master Settings Imported");
     }
     public void ImportWallModes(bool[] importedWallModes)
     {

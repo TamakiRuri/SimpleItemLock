@@ -30,7 +30,7 @@ public class LockPasswordPanel : LibPasswordPanel
                 else l_results[i] = targetAdvanced.PasswordCheck(ExportInputData());
             }
             else{
-                Debug.LogError("Item Lock Password Panel: Cannot Find Item Locks. Index:" + i);
+                Debug.LogError("Item Lock Password Panel: Cannot Find Item Locks. Index:" + i + "\n Item Lockが見つかりません。正しいオブジェクトが入っているのか確認してください");
                 return;
             }
         }

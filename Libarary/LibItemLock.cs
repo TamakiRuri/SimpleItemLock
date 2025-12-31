@@ -37,7 +37,7 @@ public class LibItemLock : UdonSharpBehaviour
         }
         return l_nameList;
     }
-    protected void ScriptAction(GameObject targetObject, int mode, bool targetState)
+    protected virtual void ScriptAction(GameObject targetObject, int mode, bool targetState)
     {
         switch (mode)
         {
