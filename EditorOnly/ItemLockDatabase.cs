@@ -2,136 +2,152 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UdonSharp;
 using UnityEditor;
 using UnityEngine;
+using VRC.Udon;
 
-public class ItemLockDatabase : MonoBehaviour
+namespace com.rurinya.itemlock
 {
-    [SerializeField] private String[] usernames;
-
-    [Header("Modeに関する詳しい説明は、Githubおよび商品ページにあります。")]
-
-    [Header("Specific Inforamtion is on the github and booth page")]
-
-    [Header("Github: https://github.com/TamakiRuri/SimpleItemLock")]
-
-    [Header("Booth: https://saphir.booth.pm/items/6375850")]
     
-    [Header(" ")]
-
-    [Header("導入したあと、下のスクリプトにデータが表示されます")]
-
-    [Header("If the data is correctly imported, The script below will show the imported data")]
-
-    [Header(" ")]
-
-    [Header("Master Passwordスクリプト連携用で、ワールド内では通常のパスワードとしてご利用できません")]
-    [Header("For script interactions. Does NOT work for world users.")]
-
-    [SerializeField] private String masterPassword="StudioSaphir";
-
-    [SerializeField] private ItemLockList[] targetObjects;
-    
-    [Header("インスタンスの一人目のマスターを許可する")]
-    [Header("Groupインスタンスでインスタンスオーナー検出できないための回避策です")]
-    [Header("Allow the first Instance Master")]
-    [Header("Useful for group instances where instace owner can't be detected")]
-
-    [SerializeField] private bool fallbackToMaster;
-
-    [Header("パスワード: 数字のみ")]
-    [Header("Password: Numbers only")]
-    [SerializeField] private String password;
-
-    [Header("タイムアウトが発生するまでパスワードを連続に間違える回数。0では無効になります。")]
-    [Header("タイムアウトになった場合、Rejoinしなければパスワード入力が処理されなくなります。")]
-    [Header("Amount of wrong passwords before the player to get timed out. 0 for disable.")]
-    [Header("If a player is timed out, later password inputs are not going to be processed unless the player rejoins.")]
-    [SerializeField] private int timeOutCount = 5;
-
-    [Header("データ入力が終わりましたら必ずGenerate Dataを押してください。")]
-    [Header("Press \"Generate Data\" after imputing your data")]
-    [Header(" ")]
-
-    [Header("Generate Dataを押すとこのプレハブはUnpackされます")]
-    [Header("This prefab will be unpacked when Generate Data is pressed")]
-    [Header(" ")]
-    [SerializeField] private GameObject controlCenter;
-    
-
-    public void ImportUsernames(String[] l_usernames)
+    public class ItemLockDatabase : MonoBehaviour
     {
-        usernames = l_usernames;
-    }
-    public void ImportObjectData(GameObject[] l_objects, int[] l_modes, bool[] l_allowOwner, bool[] l_wallModes){
-        ItemLockList[] l_list = new ItemLockList[l_objects.Length];
-        for (int i = 0; i < l_allowOwner.Length; i++){
-            ItemLockList l_entry = new ItemLockList(l_objects[i], l_modes[i], l_allowOwner[i], l_wallModes[i]);
-            l_list[i] = l_entry;
-        }
-        targetObjects = l_list;
-    }
-    public String[] ExportUserData(){
-        String[] l_usernames = new String[usernames.Length];
-        for (int i = 0; i < usernames.Length; i++){
-            l_usernames[i] = usernames[i];
-        }
-        return l_usernames;
-    }
-    public GameObject[] ExportObjectData(){
-        GameObject[] l_objects = new GameObject[targetObjects.Length];
-        for (int i = 0; i < targetObjects.Length; i++){
-            l_objects[i] = targetObjects[i].targetObject;
-        }
-        return l_objects;
-    }
-    public int[] ExportModeData(){
-        int[] l_modes = new int[targetObjects.Length];
-        for (int i = 0; i < targetObjects.Length; i++){
-            l_modes[i] = targetObjects[i].mode;
-        }
-        return l_modes;
-    }
-    public bool[] ExportAllowOwnerData(){
-        bool[] l_allowOwner = new bool[targetObjects.Length];
-        for (int i = 0; i < targetObjects.Length; i++){
-            l_allowOwner[i] = targetObjects[i].allowInstanceOwner;
-        }
-        return l_allowOwner;
-    }
-    public bool[] ExportWallData(){
-        bool[] l_wallMode = new bool[targetObjects.Length];
-        for (int i = 0; i < targetObjects.Length; i++){
-            l_wallMode[i] = targetObjects[i].wallMode;
-        }
-        return l_wallMode;
-    }
+        
 
-    public void GenerateDatatoCenter(){
-        if (controlCenter == null) controlCenter = gameObject;
-        if (PrefabUtility.IsPartOfAnyPrefab(controlCenter.gameObject))
+        [Header("Modeに関する詳しい説明は、Githubおよび商品ページにあります。")]
+
+        [Header("Specific Inforamtion is on the github and booth page")]
+
+        [Header("Github: https://github.com/TamakiRuri/SimpleItemLock")]
+
+        [Header("Booth: https://saphir.booth.pm/items/6375850")]
+        
+        [Header(" ")]
+
+        [Header("導入したあと、下のスクリプトにデータが表示されます")]
+
+        [Header("If the data is correctly imported, The script below will show the imported data")]
+
+        [Space(10)]
+
+        [Header("ホワイトリスト")]
+        [Header("Whitelist")]
+        [SerializeField] private String[] usernames;
+        [Space(10)]
+
+        [SerializeField] private ItemLockList[] targetObjects;
+        [Space(10)]
+        
+        [Header("インスタンスの一人目のマスターを許可する")]
+        [Header("Groupインスタンスでインスタンスオーナー検出できないための回避策です")]
+        [Header("Allow the first Instance Master")]
+        [Header("Useful for group instances where instace owner can't be detected")]
+
+        [SerializeField] private bool fallbackToMaster;
+        [Space(10)]
+
+        [Header("パスワード: 数字のみ")]
+        [Header("Password: Numbers only")]
+        [SerializeField] private String password;
+        [Space(10)]
+
+        [Header("タイムアウトが発生するまでパスワードを連続に間違える回数。0では無効になります。")]
+        [Header("タイムアウトになった場合、Rejoinしなければパスワード入力が処理されなくなります。")]
+        [Header("Amount of wrong passwords before the player to get timed out. 0 for disable.")]
+        [Header("If a player is timed out, later password inputs are not going to be processed unless the player rejoins.")]
+        [SerializeField] private int timeOutCount = 5;
+        [Space(10)]
+
+        [Header("(Supporter) Item Lock 履歴パネル")]
+        [Header("(Supporter) Item Lock History status display panel")]
+
+        [SerializeField] private UdonSharpBehaviour statusDisplay;
+        [Space(10)]
+
+        [Header("データ入力が終わりましたら必ずGenerate Dataを押してください。")]
+        [Header("Press \"Generate Data\" after imputing your data")]
+        [Header(" ")]
+
+        [Header("Generate Dataを押すとこのプレハブはUnpackされます")]
+        [Header("This prefab will be unpacked when Generate Data is pressed")]
+        [Header(" ")]
+        [SerializeField] private GameObject controlCenter;
+        
+
+        public void ImportUsernames(String[] l_usernames)
         {
-            PrefabUtility.UnpackPrefabInstance(controlCenter.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
+            usernames = l_usernames;
         }
-        ItemLockCenterAdvanced centerClass = controlCenter.GetComponent<ItemLockCenterAdvanced>();
-        centerClass.ImportUsernames(usernames);
-        centerClass.ImportLockData(ExportObjectData(),ExportModeData(),ExportAllowOwnerData(),ExportWallData(), fallbackToMaster);
-        centerClass.ImportPasswordData(password, timeOutCount);
-        centerClass.ImportMasterPassword(masterPassword);
-    }
-}
+        public void ImportObjectData(GameObject[] l_objects, int[] l_modes, bool[] l_allowOwner, bool[] l_wallModes){
+            ItemLockList[] l_list = new ItemLockList[l_objects.Length];
+            for (int i = 0; i < l_allowOwner.Length; i++){
+                ItemLockList l_entry = new ItemLockList(l_objects[i], l_modes[i], l_allowOwner[i], l_wallModes[i]);
+                l_list[i] = l_entry;
+            }
+            targetObjects = l_list;
+        }
+        public String[] ExportUserData(){
+            String[] l_usernames = new String[usernames.Length];
+            for (int i = 0; i < usernames.Length; i++){
+                l_usernames[i] = usernames[i];
+            }
+            return l_usernames;
+        }
+        public GameObject[] ExportObjectData(){
+            GameObject[] l_objects = new GameObject[targetObjects.Length];
+            for (int i = 0; i < targetObjects.Length; i++){
+                l_objects[i] = targetObjects[i].targetObject;
+            }
+            return l_objects;
+        }
+        public int[] ExportModeData(){
+            int[] l_modes = new int[targetObjects.Length];
+            for (int i = 0; i < targetObjects.Length; i++){
+                l_modes[i] = targetObjects[i].mode;
+            }
+            return l_modes;
+        }
+        public bool[] ExportAllowOwnerData(){
+            bool[] l_allowOwner = new bool[targetObjects.Length];
+            for (int i = 0; i < targetObjects.Length; i++){
+                l_allowOwner[i] = targetObjects[i].allowInstanceOwner;
+            }
+            return l_allowOwner;
+        }
+        public bool[] ExportWallData(){
+            bool[] l_wallMode = new bool[targetObjects.Length];
+            for (int i = 0; i < targetObjects.Length; i++){
+                l_wallMode[i] = targetObjects[i].wallMode;
+            }
+            return l_wallMode;
+        }
 
-[Serializable]public class ItemLockList{
-    public ItemLockList(GameObject l_object = null, int l_mode = 0, bool l_allowOwner = false, bool l_wallMode = false){
-        targetObject = l_object;
-        mode = l_mode;
-        allowInstanceOwner = l_allowOwner;
-        wallMode = l_wallMode;
+        public void GenerateDatatoCenter(){
+            if (controlCenter == null) controlCenter = gameObject;
+            if (PrefabUtility.IsPartOfAnyPrefab(controlCenter.gameObject))
+            {
+                PrefabUtility.UnpackPrefabInstance(controlCenter.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
+            }
+            ItemLockCenterAdvanced centerClass = controlCenter.GetComponent<ItemLockCenterAdvanced>();
+            centerClass.ImportUsernames(usernames);
+            centerClass.ImportLockData(ExportObjectData(),ExportModeData(),ExportAllowOwnerData(),ExportWallData(), fallbackToMaster);
+            centerClass.ImportPasswordData(password, timeOutCount);
+            centerClass.ImportStatusDisplay(statusDisplay);
+        }
     }
-    public GameObject targetObject;
-    public int mode;
-    public bool allowInstanceOwner;
 
-    public bool wallMode;
+    [Serializable]public class ItemLockList{
+        public ItemLockList(GameObject l_object = null, int l_mode = 0, bool l_allowOwner = false, bool l_wallMode = false){
+            targetObject = l_object;
+            mode = l_mode;
+            allowInstanceOwner = l_allowOwner;
+            wallMode = l_wallMode;
+        }
+        public GameObject targetObject;
+        public int mode;
+        public bool allowInstanceOwner;
+
+        public bool wallMode;
+    }
 }
 #endif

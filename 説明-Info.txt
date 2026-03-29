@@ -43,12 +43,16 @@ Mode 2 with disabling all mesh and skinned mesh renderers to make the target obj
 
 インスタンスを立てたプレイヤーを許可します。
 使用例: 公開ワールドでの利用や、ユーザー名追加し忘れがある場合での救済措置など。
+V2.2: グループインスタンスでは、Fallback To Masterをオンにすることで、一人目のインスタンスマスターを許可することができます。
+グループインスタンスではインスタンスオーナーを検出できないため、フォールバックとして利用できます。
 
 Allow the player who create this instance to use the item.
+V2.2: Turning on Fallback to Master can allow first master of this instaces to act as instace owner.
+This is intended to be used in group instances, where instance owners can't be detected.
 
 壁モード / Wall Mode
 
 動作が逆になります。（Mode 0 の場合: 許可されていないプレイヤーにオブジェクトが表示されるが、許可されたプレイヤーに表示されない）
-許可されたプレイヤーだけがぬける壁（コライダー）などを作れます。
+許可されたプレイヤーだけがぬける壁（コライダー）などが作れます。
 
 Use wall mode to make whitelisted players to go through certain walls etc.

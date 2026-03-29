@@ -2,7 +2,7 @@
 
 ![Sample](./Sample.png)
 
-Simple Item Lock はVRChatワールドで、アイテムを特定の人にしか触れない、または見えないようにするギミックです。パスワードのサポートもあります。(V2.1)
+Simple Item Lock はVRChatワールドで、アイテムを特定の人にしか触れない、または見えないようにするギミックです。パスワードでのご利用もできます。
 
 オブジェクト本体、またはコライダーに動作するため、ボタンやテレポーターなどにも動作します。
 
@@ -10,19 +10,19 @@ Simple Item Lock is a simple way to prevent your item being used or seen by usin
 
 It works with game objects and colliders, so items like buttons and teleporters will also work.
 
-### 特徴 / Features
+## 特徴 / Features
 
 2つ以上共存可能 / Support for multiple locks to be used at same time.
 
 コライダー、オブジェクトなどのモード / Collider / Object Mode
 
-パスワードのサポート / Support Passwords
+パスワード利用可能 / Support Passwords
 
-### 説明 / Information
+## 説明 / Information
 
 #### Mode 0 - 無効化モード/Disable Mode
 
-許可されていないプレイヤーにはオブジェクトが無効化され、存在しないようになります。Object Syncの場合ではTransformが同期されますが、許可されていないプレイヤーからはアイテムが見えません。ただし、スクリプトも同期されなくなり当たり判定も消えます。
+許可されていないプレイヤーにはオブジェクトが無効化され、存在しないようになります。Object Syncの場合ではTransformが同期されますが、許可されていないプレイヤーからはアイテムが見えません。ただし、スクリプトも一部同期されなくなり当たり判定も消えます。
 
 範囲: オブジェクト及び子オブジェクト（子オブジェクト自体は無効化されませんが、親オブジェクトが無効化された影響で無効になります。）
 
@@ -94,63 +94,50 @@ This is intended to be used in group instances, where instance owners can't be d
 
 動作が逆になります。（Mode 0 の場合: 許可されていないプレイヤーにオブジェクトが表示されるが、許可されたプレイヤーに表示されない）
 
-許可されたプレイヤーだけがぬける壁（コライダー）などを作れます。
+許可されたプレイヤーだけがぬける壁（コライダー）などが作れます。
 
 Use wall mode to make whitelisted players to go through certain walls etc.
 
-### 注意事項 / Limitations
+## 注意事項 / Limitations
 
 いたずら防止のためのギミックです。すべての状況に対応するものではありません。
 
-**Advanced Prefab はUnpackしてからご利用ください。Prefabのままでは正常に動作しません。**
-
-マスターパスワードは有料バージョン用のもので、OSSバージョンでは対応するスクリプトがありません。
-
-これは、Prefabにあるユーザーに変更されていないフィールドに、スクリプトでデータを入力しても保存されないためです。
-
-ターゲットオブジェクトをスイッチでオンにするロックが解除されます。
-
-ただし、グローバルボタンをロックして、許可されたユーザーが適切な場合で利用することで、自由にオンオフできます。
-
-この場合では、そのスイッチオフにすればオブジェクトがまたロックされます。
+Mode 0は実質上、ホワイトリストつきのスイッチのため、ターゲットオブジェクトを外部スイッチで有効にできます。
 
 同じオブジェクトを複数のItem Lockに登録した場合は干渉することがあります。
+
+
+This is designed to prevent unwanted pranks, and may not work for all types of attacks.
+
+Enabling the target objects with 3rd party switches will could enable the object regradless of the lock.
+
+Putting the same object to multiple Item Locks isn't something we tested, nor what we plan to support.
+
+## 古いバージョンをご利用の方へ / For pre-release versions
 
 Beta-b4 から、Stack Overflowの影響で、導入ツールを削除しました。
 
 RC-b7 から、変数名の変更がありますので、更新する時に必ずバックアップを取ってからImportしてください。
 
-This is designed to prevent unwanted pranks, and thus may not work for all types of attacks.
-
-**Please unpack the advanced prefab before using it. Generate Data function won't work if it's not unpacked.**
-
-Master Password is only for paid version, and it doesn't have any supported function in the OSS version.
-
-This is because, in Unity, adding something to a unchanged prefab with a script won't be saved.
-
-Enabling the target objects with switches will unlock the objects.
-
-However, by locking a global switch and letting whitelisted users using the switch when appropriate, you can enable or disable objects according to your needs.
-
-In this situation, you can lock your items agin by using the switch again.
-
-Using multiple Item Locks in the same object isn't something we tested, nor what we plan to support.
-
 From Beta-b4, due to the Stack Overflow issue, the import tool is removed.
 
 From RC-b7, some variable names are changed. So in case of an update, please make sure you have a backup.
 
-### 問題と回避策 / Limitations and workaround
+## 問題と回避策 / Limitations and workaround
 
 1. インタラプトでテレポートするドアなどに対応するモードがない / No modes applicatable to doors that rely on interaction to teleport.
 
 A: ドア（またはコライダーが入っている部分）をMode 1に設定して、その後ろに別のオブジェクトでコライダーを設定してください。
 
-### 導入
+## 導入
 
 2種類の導入方法があります。 / There are 2 ways to import this gimmick.
 
 準備 / Preparation
+
+Unity 2022.3.22
+
+VRChat World 3.10.1
 
 1. Release でunitypackageをダウンロードします。 / Download at Release page.
 
@@ -160,29 +147,33 @@ A: ドア（またはコライダーが入っている部分）をMode 1に設�
 
 2種類のPrefabがあります。 Advancedでは、アイテム一つ一つでインスタンスオーナーの許可を編集したり、モードを選択したりすることができますが、毎回Generate Dataを押す必要があります。Advanced でないItem Lockでは、すべてのオブジェクトが同じ設定になります。
 
-There are two types of prefabs. Advanced prefab allow editing modes and the options for allowing instance owner for each object, with a drawback of requiring clicking the Generate Data button every time the object is edited. The prefab without Advanced will let all target objects have the same settings. 
+/Assets/StudioSaphir/SimpleItemLockから、プレハブItemLockCenterあるいはAdvancedItemLockCenterをシーンに設置してください。
 
-右下の+マークを押しユーザー名を入力します。Usernamesにあるすべてのユーザーがオブジェクトを操作できます。
-
-Using the + mark at bottom right corner and input usernames for whitelisted users.
+Usernamesを展開し+マークを押しユーザー名を入力します。Usernamesにあるすべてのユーザーがオブジェクトを操作できます。
 
 アイテムリストを作ります。Target Object は対象アイテムです。Modeなどの説明は上にあります。
 
-Create the item list. Information about modes and other settings are above.
-
-パスワードを利用するには、別途Password Panelのオブジェクトを設置し、パネルのインスペクターにロックを設定する必要があります。
-
-To use Password, you need place the password panel object, and add the lock to the password panel on the inspector.
+パスワードを利用するには、別途Password Panelのオブジェクトを設置し、パネルのインスペクターにItem Lockを設定する必要があります。
 
 **Advanced Prefabでは毎回編集する時にGenerate Dataを押す必要があります。**
 
-**Click the Generate Data Button for Advanced Prefab after editing.**
-
 Advanced Prefabでは、Generate Dataを押すとプレハブがUnpackされます。これはプレハブではそのまま編集すると保存されないためです。
 
-After data generation on Advanced Prefab, the prefab will be unpacked to prevent data not being saved correctly.
+Advanced Prefabでは、ユーザー名コピー機能があります。他のItem Lock（非Advanced含む）またはItemLockBasicがついているオブジェクトを下のTarget LockにいれてCopy Usernamesを押すとユーザー名が入れたオブジェクトにコピーされます。
 
-Advanced Prefabでは、ユーザー名コピー機能があります。他のPrefab（非Advanced含む）またはItemLockBasicがついているオブジェクトを下のTarget LockにいれてCopy Usernamesを押すとユーザー名が入れたオブジェクトにコピーされます。
+There are two types of prefabs. Advanced prefab allow editing modes and the options for allowing instance owner for each object, with a drawback of requiring clicking the Generate Data button every time the object is edited. The prefab without Advanced will let all target objects have the same settings. 
+
+From /Assets/StudioSaphir/SimpleItemLock, place ItemLockCenter or AdvancedItemLockCenter to you scene.
+
+Using the + mark at Usernames and input usernames for whitelisted users.
+
+Create the item list. Information about modes and other settings are shown above.
+
+To use Password mode, you need place the password panel object, and add the Item Lock to the password panel on the inspector.
+
+**Click the Generate Data Button for Advanced Prefab after editing.**
+
+After data generation on Advanced Prefab, the prefab will be unpacked to prevent data not being saved correctly.
 
 In the Advanced prefab, you can put any other objects with ItemLockBasic or Item Lock Prefabs (Including non-advanced ones) and click Copy Usernames to copy the stored usernames to the target object.
 
@@ -196,16 +187,16 @@ In the Advanced prefab, you can put any other objects with ItemLockBasic or Item
 
 対象オブジェクトにItemLockCenterというスクリプトをアタッチします。
 
-Attach ItemLockCenter script to target object.
-
-右下の+マークを押してユーザー名を入力してください。Usernamesにあるすべてのユーザーがこのオブジェクトを操作できます。
-
-Using the + mark at bottom right corner and input usernames for whitelisted users.
+Usernamesを展開し+マークを押してユーザー名を入力してください。Usernamesにあるすべてのユーザーがこのオブジェクトを操作できます。
 
 アイテムリストを作ります。Target Object は対象アイテムです。Modeなどの説明は上にあります。
 
-Create the item list. Information about modes and other settings are above.
-
 パスワードを利用するには、別途Password Panelのオブジェクトを設置し、パネルのインスペクターにロックを設定する必要があります。
 
-To use Password, you need place the password panel object, and add the lock to the password panel on the inspector.
+Attach ItemLockCenter script to target object.
+
+Using the + mark at Usernames and input usernames for whitelisted users.
+
+Create the item list. Information about modes and other settings are above.
+
+To use Password mode, you need place the password panel object, and add the Item Lock to the password panel on the inspector.

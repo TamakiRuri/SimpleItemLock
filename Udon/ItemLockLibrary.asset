@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: ItemLockLibrary
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: f7f6419e4a4476d4882f0623f567b62f,
-    type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 0364274a116b6ad4e8c2c645d1d31ce7, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 1443a2d9980c1c84bb4ab0ab65a26fdc, type: 3}
@@ -21,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 0
-  scriptID: 3057754161101853594
+  scriptID: -2755714556796948741
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
