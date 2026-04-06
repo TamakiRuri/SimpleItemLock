@@ -16,7 +16,7 @@ It works with game objects and colliders, so items like buttons and teleporters 
 
 コライダー、オブジェクトなどのモード / Collider / Object Mode
 
-パスワード利用可能 / Support Passwords
+パスワード対応 / Support Passwords
 
 ## 説明 / Information
 
@@ -100,7 +100,7 @@ Use wall mode to make whitelisted players to go through certain walls etc.
 
 ## 注意事項 / Limitations
 
-いたずら防止のためのギミックです。すべての状況に対応するものではありません。
+いたずら防止のためのギミックです。すべての状況に対応できるものではありません。
 
 Mode 0は実質上、ホワイトリストつきのスイッチのため、ターゲットオブジェクトを外部スイッチで有効にできます。
 
