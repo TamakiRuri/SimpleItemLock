@@ -6,9 +6,13 @@ Simple Item Lock はVRChatワールドで、アイテムを特定の人にしか
 
 オブジェクト本体、またはコライダーに動作するため、ボタンやテレポーターなどにも動作します。
 
+Unity 2022、6000.0.67f1対応
+
 Simple Item Lock is a simple way to prevent your item being used or seen by using a white list. It also has password support.
 
 It works with game objects and colliders, so items like buttons and teleporters will also work.
+
+Supports Unity 2022, 6000.0.67f1
 
 ## 特徴 / Features
 
@@ -58,7 +62,7 @@ Target: target object itself. Child objects won't be affected. The target object
 
 Works the same as Mode 1 but all colliders on child objects will also be switched off.
 
-#### Mode 3 - コライダー一括&不可視モード/Collider & Invisible Inclusive Mode
+#### Mode 3 - コライダー一括&隠すモード/Collider & Invisible Inclusive Mode
 
 > コライダー/Rendererコンポーネントのオンオフを制御するため、それらを利用するギミックに干渉する可能性があります。
 
@@ -135,13 +139,17 @@ A: ドア（またはコライダーが入っている部分）をMode 1に設�
 
 準備 / Preparation
 
-Unity 2022.3.22
+Unity 2022.3.22 (VRChat World 3.10.1)
 
-VRChat World 3.10.1
+Unity 6000.0.67f1 (VRChat World 3.11Beta以降)
 
 1. Release でunitypackageをダウンロードします。 / Download at Release page.
 
 2. Unityの**ワールド**プロジェクトに導入します。 / Import to a **World** project.
+
+3. 初めてTextMeshProを含めたアセットを導入した場合、TextMeshProのインストールが要求されますので、指示に従ってインストールしてください。 / If this is the first time you imported assets that require TextMeshPro, you will be prompted to install TextMeshPro first. Install it if that is the case.
+
+4. Unityではフォント非対応のため、ワールドで表示される日本語文字が□になる場合があります。VRChatでは対応しているので、バグではありません。 / CJK Texts may shown as □ on Unity Editor. This is because Unity Editor does not have a CJK compatible font (While VRChat do). This is not a bug, and will be displayed correctly in VRChat.
 
 #### Prefabを利用する / Use the prefab
 

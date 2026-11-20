@@ -28,7 +28,7 @@ Mode 2 - コライダー一括モード/Collider Inclusive Mode
 This could potentially break other gimmicks that rely on colliders.
 Works the same as Mode 1 but all colliders on child objects will also be switched off.
 
-Mode 3 - コライダー一括&不可視モード/Collider & Invisible Inclusive Mode
+Mode 3 - コライダー一括&隠すモード/Collider & Invisible Inclusive Mode
 
 コライダー/Rendererコンポーネントのオンオフを制御するため、それらを利用するギミックに干渉する可能性があります。
 許可されていないプレイヤーには、このオブジェクトおよび子オブジェクトのすべてのコライダー、MeshとSkinned Mesh Rendererが無効になります。そのため、アイテムが見られないままスクリプトの実行ができます。それ以外のスクリプトは正常に同期されます。
